@@ -1,19 +1,15 @@
 package cz.muni.fi.pv243.model;
 
 import java.io.Serializable;
-import java.lang.Long;
-import java.lang.String;
 import java.math.BigDecimal;
 
-import javax.persistence.*;
-import javax.validation.Valid;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Range;
 
 /**
  * Entity implementation class for Entity: Product
