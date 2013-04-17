@@ -8,8 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-import cz.muni.fi.pv243.model.Member;
 import cz.muni.fi.pv243.model.User;
 
 @ApplicationScoped
@@ -20,7 +18,7 @@ public class UserManagerImpl implements UserManager {
 	
 	@Override
 	public void create(User user) {
-		if (user.getId() != null) {
+		if (user == null || user.getId() != null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
 		//TODO validation everywhere
@@ -29,7 +27,7 @@ public class UserManagerImpl implements UserManager {
 
 	@Override
 	public void update(User user) {
-		if (user.getId() == null) {
+		if (user == null || user.getId() == null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
 		em.merge(user);
@@ -37,7 +35,7 @@ public class UserManagerImpl implements UserManager {
 
 	@Override
 	public void delete(User user) {
-		if (user.getId() == null) {
+		if (user == null || user.getId() == null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
 		em.remove(user);
