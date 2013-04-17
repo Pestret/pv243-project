@@ -1,18 +1,20 @@
 package cz.muni.fi.pv243.model;
 
 import java.io.Serializable;
-import java.lang.Long;
-import java.lang.String;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 
 /**
  * Entity implementation class for Entity: User
  *
  */
 @Entity
-
 public class User implements Serializable {
 
 	   
