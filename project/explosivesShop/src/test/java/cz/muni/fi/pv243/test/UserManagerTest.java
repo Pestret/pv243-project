@@ -2,6 +2,7 @@ package cz.muni.fi.pv243.test;
 
 import java.util.logging.Logger;
 
+import javax.ejb.EJBException;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -25,31 +26,37 @@ import cz.muni.fi.pv243.util.Resources;
 public class UserManagerTest {
 
 	@Deployment
-    public static Archive<?> createTestArchive() {
-        return ShrinkWrap.create(WebArchive.class, "test.war")
-                .addClasses(User.class, ShoppingCart.class, OrderItem.class,
-                		Product.class, UserManager.class, UserManagerImpl.class, Resources.class)
-                .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                .addAsWebInfResource("test-ds.xml");
-    }
-	
+	public static Archive<?> createTestArchive() {
+		return ShrinkWrap
+				.create(WebArchive.class, "test.war")
+				.addClasses(User.class, ShoppingCart.class, OrderItem.class,
+						Product.class, UserManager.class,
+						UserManagerImpl.class, Resources.class)
+				.addAsResource("META-INF/test-persistence.xml",
+						"META-INF/persistence.xml")
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+				.addAsWebInfResource("test-ds.xml");
+	}
+
 	@Inject
-    Logger log;
-	
+	Logger log;
+
 	@Inject
-    UserManager userManager;
-	
+	UserManager userManager;
+
 	@Test
-	public void test() {
+	public void findByEmailTest() {
 		User user = new User();
 		user.setName("Pepa z depa");
 		user.setEmail("nebuduToDelat@milujipraci.cz");
 		user.setAddress("doma");
 		user.setPasswordHash("totalniH4sH");
 		userManager.create(user);
-		System.out.println(userManager.findAll());
-		System.out.println(userManager.findByEmail("nebuduToDelat@milujipraci.cz"));
+		userManager.findByEmail("nebuduToDelat@milujipraci.cz");
 	}
 
+	@Test(expected = EJBException.class)
+	public void wrongQueries() {
+		userManager.findByEmail("tenTuNeni!");
+	}
 }
