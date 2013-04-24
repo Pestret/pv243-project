@@ -1,5 +1,7 @@
 package cz.muni.fi.pv243.service;
 
+import java.util.List;
+
 import cz.muni.fi.pv243.model.ShoppingCart;
 
 public interface ShoppingCartManager {
@@ -12,4 +14,7 @@ public interface ShoppingCartManager {
 	
 	ShoppingCart get(Long id);
 	
+	List<ShoppingCart> getFinishedOrders();
+	
+	List<ShoppingCart> getUnfinishedOrders();
 }

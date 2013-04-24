@@ -23,7 +23,7 @@ public class ShoppingCart implements Serializable {
 	@NotNull
 	private List<OrderItem> items;
 	private static final long serialVersionUID = 1L;
-
+	private boolean isFinished = false;
 	public ShoppingCart() {
 		super();
 	}   
@@ -41,6 +41,12 @@ public class ShoppingCart implements Serializable {
 	public void setItems(List<OrderItem> items) {
 		this.items = items;
 	}   
+	public boolean isFinished() {
+		return isFinished;
+	}
+	public void setFinished(boolean isFinished) {
+		this.isFinished = isFinished;
+	}
 	@Override
 	public String toString() {
 		return "ShoppingCart [id=" + id + ", items=" + items +
