@@ -22,6 +22,7 @@ public class OrderItem implements Serializable {
 	@Min(value=1)
 	private int quantity;
 	@NotNull
+	@Column(length=1024)
 	private Product product;
 	private static final long serialVersionUID = 1L;
 

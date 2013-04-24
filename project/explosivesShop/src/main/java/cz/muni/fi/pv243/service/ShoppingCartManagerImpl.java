@@ -1,5 +1,7 @@
 package cz.muni.fi.pv243.service;
 
+import java.util.List;
+
 import javax.ejb.Stateful;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -8,6 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import cz.muni.fi.pv243.model.ShoppingCart;
+import cz.muni.fi.pv243.model.User;
 
 @Stateful
 public class ShoppingCartManagerImpl implements ShoppingCartManager {
@@ -49,6 +52,24 @@ public class ShoppingCartManagerImpl implements ShoppingCartManager {
         Root<ShoppingCart> us = criteria.from(ShoppingCart.class);
         criteria.select(us).where(cb.equal(us.get("id"), id));
         return em.createQuery(criteria).getSingleResult();
+	}
+
+	@Override
+	public List<ShoppingCart> getFinishedOrders() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<ShoppingCart> criteria = cb.createQuery(ShoppingCart.class);
+        Root<ShoppingCart> us = criteria.from(ShoppingCart.class);
+        criteria.select(us).where(cb.equal(us.get("isFinished"), true));
+        return em.createQuery(criteria).getResultList();
+	}
+
+	@Override
+	public List<ShoppingCart> getUnfinishedOrders() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<ShoppingCart> criteria = cb.createQuery(ShoppingCart.class);
+        Root<ShoppingCart> us = criteria.from(ShoppingCart.class);
+        criteria.select(us).where(cb.equal(us.get("isFinished"), false));
+        return em.createQuery(criteria).getResultList();
 	}
 
 }
