@@ -14,12 +14,12 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import cz.muni.fi.pv243.data.UserManager;
-import cz.muni.fi.pv243.data.UserManagerImpl;
 import cz.muni.fi.pv243.model.OrderItem;
 import cz.muni.fi.pv243.model.Product;
 import cz.muni.fi.pv243.model.ShoppingCart;
 import cz.muni.fi.pv243.model.User;
+import cz.muni.fi.pv243.service.UserManager;
+import cz.muni.fi.pv243.service.UserManagerImpl;
 import cz.muni.fi.pv243.util.Resources;
 
 @RunWith(Arquillian.class)

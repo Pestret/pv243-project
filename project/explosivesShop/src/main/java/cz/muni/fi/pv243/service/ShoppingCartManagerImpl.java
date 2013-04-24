@@ -1,12 +1,15 @@
-package cz.muni.fi.pv243.data;
+package cz.muni.fi.pv243.service;
 
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import cz.muni.fi.pv243.model.ShoppingCart;
 
-@Stateless
+@Stateful
 public class ShoppingCartManagerImpl implements ShoppingCartManager {
 	
 	@Inject
@@ -17,7 +20,6 @@ public class ShoppingCartManagerImpl implements ShoppingCartManager {
 		if (cart == null || cart.getId() != null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
-		//TODO validation everywhere
 		em.persist(cart);
 	}
 
@@ -35,6 +37,18 @@ public class ShoppingCartManagerImpl implements ShoppingCartManager {
 			throw new IllegalArgumentException("je to zosrate");
 		}
 		em.remove(cart);
+	}
+
+	@Override
+	public ShoppingCart get(Long id) {
+		if (id == null) {
+			throw new IllegalArgumentException("je to zosrate");
+		}
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<ShoppingCart> criteria = cb.createQuery(ShoppingCart.class);
+        Root<ShoppingCart> us = criteria.from(ShoppingCart.class);
+        criteria.select(us).where(cb.equal(us.get("id"), id));
+        return em.createQuery(criteria).getSingleResult();
 	}
 
 }

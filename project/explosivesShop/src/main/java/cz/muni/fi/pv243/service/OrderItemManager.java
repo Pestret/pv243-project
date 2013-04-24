@@ -1,4 +1,4 @@
-package cz.muni.fi.pv243.data;
+package cz.muni.fi.pv243.service;
 
 import cz.muni.fi.pv243.model.OrderItem;
 
@@ -9,5 +9,7 @@ public interface OrderItemManager {
 	void update(OrderItem item);
 	
 	void delete(OrderItem item);
+	
+	OrderItem get(Long id);
 	
 }

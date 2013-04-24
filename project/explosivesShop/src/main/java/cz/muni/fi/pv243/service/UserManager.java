@@ -1,4 +1,4 @@
-package cz.muni.fi.pv243.data;
+package cz.muni.fi.pv243.service;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ public interface UserManager {
 	void update(User user);
 	
 	void delete(User user);
+	
+	User get(Long id);
 	
 	List<User> findAll();
 	

@@ -1,4 +1,4 @@
-package cz.muni.fi.pv243.data;
+package cz.muni.fi.pv243.service;
 
 import java.util.List;
 
@@ -11,6 +11,8 @@ public interface ProductManager {
 	void update(Product product);
 	
 	void delete(Product product);
+	
+	Product get(Long id);
 	
 	List<Product> findByName(String name);
 	

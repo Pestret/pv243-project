@@ -1,4 +1,4 @@
-package cz.muni.fi.pv243.data;
+package cz.muni.fi.pv243.service;
 
 import java.util.List;
 
@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
 import cz.muni.fi.pv243.model.Product;
 
 @Stateless
@@ -21,7 +22,6 @@ public class ProductManagerImpl implements ProductManager {
 		if (product == null || product.getId() != null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
-		//TODO validation everywhere
 		em.persist(product);
 	}
 
@@ -51,6 +51,18 @@ public class ProductManagerImpl implements ProductManager {
         Root<Product> us = criteria.from(Product.class);
         criteria.select(us).where(cb.equal(us.get("name"), name));
         return em.createQuery(criteria).getResultList();
+	}
+
+	@Override
+	public Product get(Long id) {
+		if (id == null) {
+			throw new IllegalArgumentException("je to zosrate");
+		}
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Product> criteria = cb.createQuery(Product.class);
+        Root<Product> us = criteria.from(Product.class);
+        criteria.select(us).where(cb.equal(us.get("id"), id));
+        return em.createQuery(criteria).getSingleResult();
 	}
 
 }
