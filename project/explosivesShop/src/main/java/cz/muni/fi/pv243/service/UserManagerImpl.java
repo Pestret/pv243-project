@@ -43,11 +43,16 @@ public class UserManagerImpl implements UserManager {
 
 	@Override
 	public List<User> findAll() {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<User> criteria = cb.createQuery(User.class);
-        Root<User> us = criteria.from(User.class);
-        criteria.select(us).orderBy(cb.asc(us.get("name")));
-        return em.createQuery(criteria).getResultList();
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+	        CriteriaQuery<User> criteria = cb.createQuery(User.class);
+	        Root<User> us = criteria.from(User.class);
+	        criteria.select(us).orderBy(cb.asc(us.get("name")));
+	        return em.createQuery(criteria).getResultList();
+		} catch (Exception e) {
+			return null;
+		}
+		
 	}
 
 	@Override
@@ -55,11 +60,15 @@ public class UserManagerImpl implements UserManager {
 		if (name == null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<User> criteria = cb.createQuery(User.class);
-        Root<User> us = criteria.from(User.class);
-        criteria.select(us).where(cb.equal(us.get("name"), name));
-        return em.createQuery(criteria).getResultList();
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+	        CriteriaQuery<User> criteria = cb.createQuery(User.class);
+	        Root<User> us = criteria.from(User.class);
+	        criteria.select(us).where(cb.equal(us.get("name"), name));
+	        return em.createQuery(criteria).getResultList();
+		}catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
@@ -67,11 +76,16 @@ public class UserManagerImpl implements UserManager {
 		if (email == null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<User> criteria = cb.createQuery(User.class);
-        Root<User> us = criteria.from(User.class);
-        criteria.select(us).where(cb.equal(us.get("email"), email));
-        return em.createQuery(criteria).getSingleResult();
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+	        CriteriaQuery<User> criteria = cb.createQuery(User.class);
+	        Root<User> us = criteria.from(User.class);
+	        criteria.select(us).where(cb.equal(us.get("email"), email));
+	        return em.createQuery(criteria).getSingleResult();
+		}catch (Exception e) {
+			return null;
+		}
+		
 	}
 
 	@Override
@@ -79,11 +93,15 @@ public class UserManagerImpl implements UserManager {
 		if (id == null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<User> criteria = cb.createQuery(User.class);
-        Root<User> us = criteria.from(User.class);
-        criteria.select(us).where(cb.equal(us.get("id"), id));
-        return em.createQuery(criteria).getSingleResult();
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+	        CriteriaQuery<User> criteria = cb.createQuery(User.class);
+	        Root<User> us = criteria.from(User.class);
+	        criteria.select(us).where(cb.equal(us.get("id"), id));
+	        return em.createQuery(criteria).getSingleResult();
+		}catch (Exception e) {
+			return null;
+		}
+		
 	}
-
 }

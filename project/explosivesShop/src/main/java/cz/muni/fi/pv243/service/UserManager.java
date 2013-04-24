@@ -19,5 +19,4 @@ public interface UserManager {
 	List<User> findByName(String name);
 	
 	User findByEmail(String email);	
-
 }
