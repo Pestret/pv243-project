@@ -3,6 +3,7 @@ package cz.muni.fi.pv243.service;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -17,12 +18,16 @@ public class ProductManagerImpl implements ProductManager {
 	@Inject
     private EntityManager em;
 
+	@Inject
+	private Event<Product> productEventSrc;
+	
 	@Override
 	public void create(Product product) {
 		if (product == null || product.getId() != null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
 		em.persist(product);
+		productEventSrc.fire(product);
 	}
 
 	@Override
@@ -31,6 +36,7 @@ public class ProductManagerImpl implements ProductManager {
 			throw new IllegalArgumentException("je to zosrate");
 		}
 		em.merge(product);
+		productEventSrc.fire(product);
 	}
 
 	@Override
@@ -39,6 +45,7 @@ public class ProductManagerImpl implements ProductManager {
 			throw new IllegalArgumentException("je to zosrate");
 		}
 		em.remove(product);
+		productEventSrc.fire(product);
 	}
 
 	@Override

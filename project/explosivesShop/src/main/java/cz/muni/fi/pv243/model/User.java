@@ -80,7 +80,7 @@ public class User implements Serializable {
 	}
 
 	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = passwordHash;
+		this.passwordHash = String.valueOf(passwordHash.hashCode());
 	}
 	@Override
 	public int hashCode() {

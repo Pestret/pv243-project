@@ -3,6 +3,7 @@ package cz.muni.fi.pv243.service;
 import java.util.List;
 
 import javax.ejb.Stateful;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -17,12 +18,16 @@ public class ShoppingCartManagerImpl implements ShoppingCartManager {
 	@Inject
     private EntityManager em;
 
+	@Inject
+	private Event<ShoppingCart> cartEventSrc;
+	
 	@Override
 	public void create(ShoppingCart cart) {
 		if (cart == null || cart.getId() != null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
 		em.persist(cart);
+		cartEventSrc.fire(cart);
 	}
 
 	@Override
@@ -31,6 +36,7 @@ public class ShoppingCartManagerImpl implements ShoppingCartManager {
 			throw new IllegalArgumentException("je to zosrate");
 		}
 		em.merge(cart);
+		cartEventSrc.fire(cart);
 	}
 
 	@Override
@@ -39,6 +45,7 @@ public class ShoppingCartManagerImpl implements ShoppingCartManager {
 			throw new IllegalArgumentException("je to zosrate");
 		}
 		em.remove(cart);
+		cartEventSrc.fire(cart);
 	}
 
 	@Override
