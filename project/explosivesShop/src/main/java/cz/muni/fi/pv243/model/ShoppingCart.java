@@ -22,6 +22,7 @@ public class ShoppingCart implements Serializable {
 	@OneToMany(fetch=FetchType.EAGER, orphanRemoval=true)
 	@NotNull
 	private List<OrderItem> items;
+	private User user;
 	private static final long serialVersionUID = 1L;
 	private boolean isFinished = false;
 	public ShoppingCart() {
@@ -41,6 +42,12 @@ public class ShoppingCart implements Serializable {
 	public void setItems(List<OrderItem> items) {
 		this.items = items;
 	}   
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public boolean isFinished() {
 		return isFinished;
 	}

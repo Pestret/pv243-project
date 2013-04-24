@@ -12,14 +12,19 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
-
+import org.jboss.seam.security.Identity;
 import cz.muni.fi.pv243.model.ShoppingCart;
+import cz.muni.fi.pv243.model.User;
 
 @RequestScoped
 public class UserShoppingCartCache {
 	@Inject
 	EntityManager em;
+	
+	@Inject
+	private Identity identity;
 	
 	@Inject
 	private Logger log;
@@ -42,24 +47,23 @@ public class UserShoppingCartCache {
 	
 	@PostConstruct
 	public void loadAllOrders () {
-		try {
-			CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<ShoppingCart> criteria = cb.createQuery(ShoppingCart.class);
-            Root<ShoppingCart> us = criteria.from(ShoppingCart.class);
-            criteria.select(us).orderBy(cb.asc(us.get("id")));
-            List<ShoppingCart> allOrders = em.createQuery(criteria).getResultList();
-            finishedOrders = new ArrayList<ShoppingCart>();
-            unfinishedOrders = new ArrayList<ShoppingCart>();
-            for (ShoppingCart order : allOrders) {
-            	if (order.isFinished()) {
-            		finishedOrders.add(order);
-            	} else {
-            		unfinishedOrders.add(order);
-            	}
-            }
-		}catch (Exception e) {
-			finishedOrders = new ArrayList<ShoppingCart>();
-			unfinishedOrders = new ArrayList<ShoppingCart>();
-		}
+		finishedOrders = new ArrayList<ShoppingCart>();
+        unfinishedOrders = new ArrayList<ShoppingCart>();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<ShoppingCart> criteria = cb.createQuery(ShoppingCart.class);
+        Root<ShoppingCart> carts = criteria.from(ShoppingCart.class);
+        User user = (cz.muni.fi.pv243.model.User) identity.getUser();
+    	criteria.select(carts).orderBy(cb.asc(carts.get("id")));
+    	Expression<User> userExpression = carts.get("user");
+    	List<ShoppingCart> allOrders = em.createQuery(
+    	criteria.where(cb.equal(userExpression, user)))
+    	.getResultList();
+    	for (ShoppingCart cart : allOrders) {
+    		if (cart.isFinished()) {
+    		finishedOrders.add(cart);
+    		} else {
+    		unfinishedOrders.add(cart);
+    		}
+    		}
 	}
 }
