@@ -16,9 +16,9 @@
 --
 
 -- You can use this file to load seed data into the database using SQL statements
-insert into Member (id, name, email, phone_number) values (0, 'John Smith', 'john.smith@mailinator.com', '2125551212') 
+-- insert into Member (id, name, email, phone_number) values (0, 'John Smith', 'john.smith@mailinator.com', '2125551212') 
 insert into User (id, name, email, address, passwordHash) values (0, 'Pepa z depa', 'nebuduToDelat@milujipraci.cz', 'doma', 'totalniH4sH')
-insert into User (id, name, email, address, passwordHash) values (1, 'Pepa z depa', 'nebuduToDelat@milujipraci.cz', 'doma', 'totalniH4sH')
+insert into User (id, name, email, address, passwordHash) values (1, 'Pepa z depa', 'nebuduToDela5t@milujipraci.cz', 'doma', 'totalniH4sH')
 insert into User (id, name, email, address, passwordHash) values (2, 'Pepa z depa2', 'nebuduToDelat2@milujipraci.cz', 'doma2', 'totalniH4sH2')
 insert into User (id, name, email, address, passwordHash) values (3, 'Pepa z depa3', 'nebuduToDelat3@milujipraci.cz', 'doma3', 'totalniH4sH3')
 insert into Product (id, name, description, price, available) values (0, 'Vybusna vrtacka', 'Bum bam ratata...', 250, 4)

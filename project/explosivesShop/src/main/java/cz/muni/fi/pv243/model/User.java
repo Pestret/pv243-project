@@ -28,7 +28,7 @@ public class User implements Serializable {
 	private String address;	
 	@NotNull
 	@Column(unique=true)
-	@Size(min = 1, max = 25)
+	@Size(min = 1, max = 50)
 	@Pattern(regexp = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "not a valid email address")
 	private String email;
 	@NotNull

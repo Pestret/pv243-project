@@ -1,5 +1,7 @@
 package cz.muni.fi.pv243.test;
 
+import static org.junit.Assert.*;
+
 import java.util.logging.Logger;
 
 import javax.ejb.EJBException;
@@ -48,15 +50,20 @@ public class UserManagerTest {
 	public void findByEmailTest() {
 		User user = new User();
 		user.setName("Pepa z depa");
-		user.setEmail("nebuduToDelat@milujipraci.cz");
+		user.setEmail("nebuduTo@milujipraci.cz");
 		user.setAddress("doma");
 		user.setPasswordHash("totalniH4sH");
 		userManager.create(user);
-		userManager.findByEmail("nebuduToDelat@milujipraci.cz");
+		userManager.findByEmail("nebuduTo@milujipraci.cz");
 	}
 
-	@Test(expected = EJBException.class)
+	@Test
 	public void wrongQueries() {
-		userManager.findByEmail("tenTuNeni!");
+		assertNull(userManager.findByEmail("tenTuNeni!"));
+	}
+	
+	@Test
+	public void testUsers(){
+		log.info(userManager.findAll().toString());
 	}
 }

@@ -3,7 +3,9 @@ package cz.muni.fi.pv243.service;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -42,6 +44,8 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	@Override
+	@Produces
+	@Named("users")
 	public List<User> findAll() {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
