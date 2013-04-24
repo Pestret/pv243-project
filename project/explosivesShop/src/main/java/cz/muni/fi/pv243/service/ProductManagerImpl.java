@@ -46,11 +46,16 @@ public class ProductManagerImpl implements ProductManager {
 		if (name == null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Product> criteria = cb.createQuery(Product.class);
-        Root<Product> us = criteria.from(Product.class);
-        criteria.select(us).where(cb.equal(us.get("name"), name));
-        return em.createQuery(criteria).getResultList();
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+	        CriteriaQuery<Product> criteria = cb.createQuery(Product.class);
+	        Root<Product> us = criteria.from(Product.class);
+	        criteria.select(us).where(cb.equal(us.get("name"), name));
+	        return em.createQuery(criteria).getResultList();
+		}catch (Exception e){
+			return null;
+		}
+		
 	}
 
 	@Override
@@ -58,11 +63,16 @@ public class ProductManagerImpl implements ProductManager {
 		if (id == null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Product> criteria = cb.createQuery(Product.class);
-        Root<Product> us = criteria.from(Product.class);
-        criteria.select(us).where(cb.equal(us.get("id"), id));
-        return em.createQuery(criteria).getSingleResult();
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+	        CriteriaQuery<Product> criteria = cb.createQuery(Product.class);
+	        Root<Product> us = criteria.from(Product.class);
+	        criteria.select(us).where(cb.equal(us.get("id"), id));
+	        return em.createQuery(criteria).getSingleResult();
+		}catch (Exception e){
+			return null;
+		}
+		
 	}
 
 }

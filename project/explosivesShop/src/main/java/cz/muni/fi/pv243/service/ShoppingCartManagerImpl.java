@@ -10,7 +10,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import cz.muni.fi.pv243.model.ShoppingCart;
-import cz.muni.fi.pv243.model.User;
 
 @Stateful
 public class ShoppingCartManagerImpl implements ShoppingCartManager {
@@ -47,29 +46,44 @@ public class ShoppingCartManagerImpl implements ShoppingCartManager {
 		if (id == null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<ShoppingCart> criteria = cb.createQuery(ShoppingCart.class);
-        Root<ShoppingCart> us = criteria.from(ShoppingCart.class);
-        criteria.select(us).where(cb.equal(us.get("id"), id));
-        return em.createQuery(criteria).getSingleResult();
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+	        CriteriaQuery<ShoppingCart> criteria = cb.createQuery(ShoppingCart.class);
+	        Root<ShoppingCart> us = criteria.from(ShoppingCart.class);
+	        criteria.select(us).where(cb.equal(us.get("id"), id));
+	        return em.createQuery(criteria).getSingleResult();
+		}catch (Exception e){
+			return null;
+		}
+		
 	}
 
 	@Override
 	public List<ShoppingCart> getFinishedOrders() {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<ShoppingCart> criteria = cb.createQuery(ShoppingCart.class);
-        Root<ShoppingCart> us = criteria.from(ShoppingCart.class);
-        criteria.select(us).where(cb.equal(us.get("isFinished"), true));
-        return em.createQuery(criteria).getResultList();
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+	        CriteriaQuery<ShoppingCart> criteria = cb.createQuery(ShoppingCart.class);
+	        Root<ShoppingCart> us = criteria.from(ShoppingCart.class);
+	        criteria.select(us).where(cb.equal(us.get("isFinished"), true));
+	        return em.createQuery(criteria).getResultList();
+		}catch (Exception e){
+			return null;
+		}
+		
 	}
 
 	@Override
 	public List<ShoppingCart> getUnfinishedOrders() {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<ShoppingCart> criteria = cb.createQuery(ShoppingCart.class);
-        Root<ShoppingCart> us = criteria.from(ShoppingCart.class);
-        criteria.select(us).where(cb.equal(us.get("isFinished"), false));
-        return em.createQuery(criteria).getResultList();
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+	        CriteriaQuery<ShoppingCart> criteria = cb.createQuery(ShoppingCart.class);
+	        Root<ShoppingCart> us = criteria.from(ShoppingCart.class);
+	        criteria.select(us).where(cb.equal(us.get("isFinished"), false));
+	        return em.createQuery(criteria).getResultList();
+		}catch (Exception e){
+			return null;
+		}
+		
 	}
 
 }

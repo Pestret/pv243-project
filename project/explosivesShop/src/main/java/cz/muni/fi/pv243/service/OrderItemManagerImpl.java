@@ -44,11 +44,16 @@ public class OrderItemManagerImpl implements OrderItemManager {
 		if (id == null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<OrderItem> criteria = cb.createQuery(OrderItem.class);
-        Root<OrderItem> us = criteria.from(OrderItem.class);
-        criteria.select(us).where(cb.equal(us.get("id"), id));
-        return em.createQuery(criteria).getSingleResult();
+		try {
+			CriteriaBuilder cb = em.getCriteriaBuilder();
+	        CriteriaQuery<OrderItem> criteria = cb.createQuery(OrderItem.class);
+	        Root<OrderItem> us = criteria.from(OrderItem.class);
+	        criteria.select(us).where(cb.equal(us.get("id"), id));
+	        return em.createQuery(criteria).getSingleResult();
+		}catch (Exception e){
+			return null;
+		}
+		
 	}
 
 }
