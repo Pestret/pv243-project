@@ -135,6 +135,12 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>1.6</version>
+		</dependency>
+
 		<!-- JSR-303 (Bean Validation) Implementation -->
 		<!-- Provides portable constraints such as @Email -->
 		<!-- Hibernate Validator is shipped in JBoss AS 7 -->
