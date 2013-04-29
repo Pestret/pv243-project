@@ -50,7 +50,7 @@ public class UserController {
         newUser = new User();
     }
 
-    public void register() throws Exception {
+    public void register() {
         try {
             userManager.create(newUser);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful");
@@ -60,6 +60,19 @@ public class UserController {
         	facesContext.addMessage("addForm:registerButton",
 					new FacesMessage("Registration failed."));
         }
+    }
+    
+    public void login() {
+    	try {
+    		User userFromDb = userManager.findByEmail(newUser.getEmail());
+    		if (userFromDb != null && userFromDb.getPasswordHash().equals(newUser.getPasswordHash())) {
+    			//login success
+    		}else {
+    			//redirect to login failed
+    		}
+    	} catch (Exception e) {
+    		//TODO error message using facesContext
+    	}
     }
 
     
