@@ -24,17 +24,24 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.jboss.seam.security.BaseAuthenticator;
+import org.jboss.seam.security.Credentials;
+import org.picketlink.idm.impl.api.PasswordCredential;
+
 import cz.muni.fi.pv243.model.User;
 import cz.muni.fi.pv243.service.UserManager;
 
 @Model
-public class UserController {
+public class UserController extends BaseAuthenticator{
 
     @Inject
     private FacesContext facesContext;
 
     @Inject
     private UserManager userManager;
+    
+    @Inject
+    private Credentials credentials;
     
     private User newUser;
 
@@ -61,19 +68,30 @@ public class UserController {
 					new FacesMessage("Registration failed."));
         }
     }
-    
-    public void login() {
-    	try {
-    		User userFromDb = userManager.findByEmail(newUser.getEmail());
-    		if (userFromDb != null && userFromDb.getPasswordHash().equals(newUser.getPasswordHash())) {
-    			//login success
-    		}else {
-    			//redirect to login failed
+
+
+	@Override
+	public void authenticate() {
+		try {
+    		User userFromDb = userManager.findByEmail(credentials.getUsername());
+    		if (userFromDb == null){
+    			setStatus(AuthenticationStatus.FAILURE);
+    			facesContext.addMessage("loginForm:username", new FacesMessage(
+    					"Non existing user"));
+    		} else {
+    			if (userFromDb.getPasswordHash().equals(((PasswordCredential)credentials.getCredential()).getValue())) {
+    				//login success
+        			setStatus(AuthenticationStatus.SUCCESS);
+        			setUser(userFromDb);
+    			}else {
+    				//redirect to login failed
+        			setStatus(AuthenticationStatus.FAILURE);
+    			}
     		}
     	} catch (Exception e) {
     		//TODO error message using facesContext
     	}
-    }
+	}
 
     
 }
