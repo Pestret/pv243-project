@@ -13,6 +13,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import cz.muni.fi.pv243.model.validation.ValidEmail;
 /**
  * Entity implementation class for Entity: User
  *
@@ -33,7 +35,8 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 	@NotNull
 	@Column(unique=true)
 	@Size(min = 1, max = 50)
-	@Pattern(regexp = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "not a valid email address")
+	//@Pattern(regexp = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "not a valid email address")
+	@ValidEmail
 	private String email;
 	@NotNull
 	@Size(min = 1, max = 50)
