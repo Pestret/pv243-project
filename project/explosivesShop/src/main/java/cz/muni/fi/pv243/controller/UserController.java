@@ -57,14 +57,14 @@ public class UserController extends BaseAuthenticator{
         newUser = new User();
     }
 
-    public void register() {
+    public void register() throws Exception {
         try {
             userManager.create(newUser);
             FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO, "Registered!", "Registration successful");
-            facesContext.addMessage(null, m);
+            facesContext.addMessage("registerForm:registerMessages", m);
             initNewUser();
         } catch (Exception e) {
-        	facesContext.addMessage("addForm:registerButton",
+        	facesContext.addMessage("registerForm:registerMessages",
 					new FacesMessage("Registration failed."));
         }
     }

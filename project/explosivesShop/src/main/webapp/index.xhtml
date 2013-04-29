@@ -10,13 +10,15 @@
 		<div>
 			<p>Luckily deployed, enjoy your stay...</p>
 		</div>
+
 		<h:link outcome="/login.xhtml">
 		<h:outputLabel value="Login"/>
 		</h:link>
 		<br /><br />
-		<h:form id="reg">
+
+		<h:form id="registerForm">
 			<h2>User Registration</h2>
-			
+			<h:message for="registerMessages" />
 			<h:panelGrid columns="3" columnClasses="titleCell">
 				<h:outputLabel for="name" value="Name:" />
 				<h:inputText id="name" value="#{newUser.name}" />
