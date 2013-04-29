@@ -25,8 +25,10 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 	@GeneratedValue
 	private Long id;
 	@NotNull
+	@Size(min = 1, max = 50)
 	private String name;
 	@NotNull
+	@Size(min = 1, max = 80)
 	private String address;	
 	@NotNull
 	@Column(unique=true)
@@ -34,11 +36,12 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 	@Pattern(regexp = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", message = "not a valid email address")
 	private String email;
 	@NotNull
+	@Size(min = 1, max = 50)
 	private String passwordHash;
 	@OneToOne(fetch=FetchType.EAGER, orphanRemoval=true)
 	private ShoppingCart cart;
 	@NotNull
-	@NotEmpty
+	@Size(min = 1, max = 50)
 	private String role;
 	private static final long serialVersionUID = 1L;
 
