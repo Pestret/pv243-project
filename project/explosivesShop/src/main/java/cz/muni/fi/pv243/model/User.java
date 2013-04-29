@@ -9,21 +9,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 import cz.muni.fi.pv243.model.validation.ValidEmail;
 import cz.muni.fi.pv243.model.validation.ValidName;
+
 /**
  * Entity implementation class for Entity: User
- *
+ * 
  */
 @Entity
 public class User implements Serializable, org.picketlink.idm.api.User {
 
-	   
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -32,15 +29,15 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 	private String name;
 	@NotNull
 	@Size(min = 1, max = 80)
-	private String address;	
+	private String address;
 	@NotNull
-	@Column(unique=true)
+	@Column(unique = true)
 	@ValidEmail
 	private String email;
 	@NotNull
 	@Size(min = 1, max = 250)
 	private String passwordHash;
-	@OneToOne(fetch=FetchType.EAGER, orphanRemoval=true)
+	@OneToOne(fetch = FetchType.EAGER, orphanRemoval = true)
 	private ShoppingCart cart;
 	@NotNull
 	@Size(min = 1, max = 50)
@@ -49,35 +46,40 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 
 	public User() {
 		super();
-	}   
+	}
+
 	public Long getIdentificator() {
 		return this.id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}   
+	}
+
 	public String getName() {
 		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}   
+	}
+
 	public String getAddress() {
 		return this.address;
 	}
-	
+
 	public String getRole() {
 		return role;
 	}
+
 	public void setRole(String role) {
 		this.role = role;
 	}
 
 	public void setAddress(String address) {
 		this.address = address;
-	}   
+	}
+
 	public String getEmail() {
 		return this.email;
 	}
@@ -85,20 +87,23 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 	public ShoppingCart getCart() {
 		return cart;
 	}
+
 	public void setCart(ShoppingCart cart) {
 		this.cart = cart;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
-	}   
+	}
+
 	public String getPasswordHash() {
 		return this.passwordHash;
 	}
 
 	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = String.valueOf(passwordHash.hashCode());
+		this.passwordHash = passwordHash;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -106,6 +111,7 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -122,18 +128,21 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", address=" + address
 				+ ", email=" + email + "]";
 	}
+
 	@Override
 	public String getKey() {
 		return getId();
 	}
+
 	@Override
 	public String getId() {
 		return email;
 	}
-   
+
 }

@@ -1,5 +1,6 @@
 package cz.muni.fi.pv243.service;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -12,18 +13,27 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import cz.muni.fi.pv243.model.User;
+import cz.muni.fi.pv243.security.Encoder;
 
 @Stateless
 public class UserManagerImpl implements UserManager {
 
 	@Inject
-    private EntityManager em;
-	
+	private EntityManager em;
+
 	@Override
 	public void create(User user) {
 		if (user == null || user.getIdentificator() != null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
+		try {
+			user.setPasswordHash(Encoder.encode(user.getPasswordHash(),
+					user.getEmail()));
+		} catch (NoSuchAlgorithmException ex) {
+			throw new IllegalArgumentException("Wrong password", ex);
+		}
+		if(user.getRole() == null)
+			user.setRole("customer");
 		em.persist(user);
 	}
 
@@ -32,6 +42,14 @@ public class UserManagerImpl implements UserManager {
 		if (user == null || user.getIdentificator() == null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
+		try {
+			user.setPasswordHash(Encoder.encode(user.getPasswordHash(),
+					user.getEmail()));
+		} catch (NoSuchAlgorithmException ex) {
+			throw new IllegalArgumentException("Wrong password", ex);
+		}
+		if(user.getRole() == null)
+			user.setRole("customer");		
 		em.merge(user);
 	}
 
@@ -49,14 +67,14 @@ public class UserManagerImpl implements UserManager {
 	public List<User> findAll() {
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
-	        CriteriaQuery<User> criteria = cb.createQuery(User.class);
-	        Root<User> us = criteria.from(User.class);
-	        criteria.select(us).orderBy(cb.asc(us.get("name")));
-	        return em.createQuery(criteria).getResultList();
+			CriteriaQuery<User> criteria = cb.createQuery(User.class);
+			Root<User> us = criteria.from(User.class);
+			criteria.select(us).orderBy(cb.asc(us.get("name")));
+			return em.createQuery(criteria).getResultList();
 		} catch (Exception e) {
 			return null;
 		}
-		
+
 	}
 
 	@Override
@@ -66,11 +84,11 @@ public class UserManagerImpl implements UserManager {
 		}
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
-	        CriteriaQuery<User> criteria = cb.createQuery(User.class);
-	        Root<User> us = criteria.from(User.class);
-	        criteria.select(us).where(cb.equal(us.get("name"), name));
-	        return em.createQuery(criteria).getResultList();
-		}catch (Exception e) {
+			CriteriaQuery<User> criteria = cb.createQuery(User.class);
+			Root<User> us = criteria.from(User.class);
+			criteria.select(us).where(cb.equal(us.get("name"), name));
+			return em.createQuery(criteria).getResultList();
+		} catch (Exception e) {
 			return null;
 		}
 	}
@@ -82,14 +100,14 @@ public class UserManagerImpl implements UserManager {
 		}
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
-	        CriteriaQuery<User> criteria = cb.createQuery(User.class);
-	        Root<User> us = criteria.from(User.class);
-	        criteria.select(us).where(cb.equal(us.get("email"), email));
-	        return em.createQuery(criteria).getSingleResult();
-		}catch (Exception e) {
+			CriteriaQuery<User> criteria = cb.createQuery(User.class);
+			Root<User> us = criteria.from(User.class);
+			criteria.select(us).where(cb.equal(us.get("email"), email));
+			return em.createQuery(criteria).getSingleResult();
+		} catch (Exception e) {
 			return null;
 		}
-		
+
 	}
 
 	@Override
@@ -99,13 +117,13 @@ public class UserManagerImpl implements UserManager {
 		}
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
-	        CriteriaQuery<User> criteria = cb.createQuery(User.class);
-	        Root<User> us = criteria.from(User.class);
-	        criteria.select(us).where(cb.equal(us.get("id"), id));
-	        return em.createQuery(criteria).getSingleResult();
-		}catch (Exception e) {
+			CriteriaQuery<User> criteria = cb.createQuery(User.class);
+			Root<User> us = criteria.from(User.class);
+			criteria.select(us).where(cb.equal(us.get("id"), id));
+			return em.createQuery(criteria).getSingleResult();
+		} catch (Exception e) {
 			return null;
 		}
-		
+
 	}
 }
