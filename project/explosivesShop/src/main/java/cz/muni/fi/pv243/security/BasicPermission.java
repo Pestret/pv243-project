@@ -1,4 +1,4 @@
-package cz.muni.fi.pv243.webconfig;
+package cz.muni.fi.pv243.security;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;

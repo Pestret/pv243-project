@@ -1,4 +1,4 @@
-package cz.muni.fi.pv243.webconfig;
+package cz.muni.fi.pv243.security;
 
 import java.util.logging.Logger;
 
