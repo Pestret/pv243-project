@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 /**
  * Entity implementation class for Entity: User
  *
@@ -35,6 +37,9 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 	private String passwordHash;
 	@OneToOne(fetch=FetchType.EAGER, orphanRemoval=true)
 	private ShoppingCart cart;
+	@NotNull
+	@NotEmpty
+	private String role;
 	private static final long serialVersionUID = 1L;
 
 	public User() {
@@ -56,6 +61,13 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 	}   
 	public String getAddress() {
 		return this.address;
+	}
+	
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public void setAddress(String address) {
