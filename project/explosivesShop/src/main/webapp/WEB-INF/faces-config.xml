@@ -20,17 +20,34 @@
 
 	<!-- Write your navigation rules here. You are encouraged to use CDI for 
 		creating @Named managed beans. -->
-	<navigation-rule>
-		<from-view-id>/login.xhtml</from-view-id>
-		<navigation-case>
-			<from-action>#{userController.authenticate}</from-action>
-			<from-outcome>success</from-outcome>
-			<to-view-id>/user_profile.xhtml</to-view-id>
-		</navigation-case>
-	</navigation-rule>
-	
 	<validator>
 		<validator-id>passwordValidator</validator-id>
 		<validator-class>cz.muni.fi.pv243.model.validation.PasswordValidator</validator-class>
 	</validator>
+	
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{identity.login}</from-action>
+			<if>#{userController.isAdmin(identity)}</if>
+			<to-view-id>/admin_page.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{identity.login}</from-action>
+			<if>#{userController.isCustomer(identity)}</if>
+			<to-view-id>/user_profile.xhtml</to-view-id>
+			<redirect/>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-action>#{identity.logout}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
 </faces-config>

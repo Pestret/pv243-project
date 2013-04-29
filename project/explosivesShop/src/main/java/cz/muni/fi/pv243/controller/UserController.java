@@ -26,9 +26,11 @@ import javax.inject.Named;
 
 import org.jboss.seam.security.BaseAuthenticator;
 import org.jboss.seam.security.Credentials;
+import org.jboss.seam.security.Identity;
 import org.picketlink.idm.impl.api.PasswordCredential;
 
 import cz.muni.fi.pv243.model.User;
+import cz.muni.fi.pv243.security.Authorization;
 import cz.muni.fi.pv243.service.UserManager;
 
 @Model
@@ -43,6 +45,9 @@ public class UserController extends BaseAuthenticator{
     @Inject
     private Credentials credentials;
     
+//    @Inject
+//    private Identity identity;
+    
     private User newUser;
 
     @Produces
@@ -52,6 +57,18 @@ public class UserController extends BaseAuthenticator{
 	}
 
 	
+//    public Identity getIdentity() {
+//    	return identity;
+//    }
+    
+    public boolean isAdmin(Identity identity) {
+    	return Authorization.isAdmin(identity);
+    }
+    
+    public boolean isCustomer (Identity identity) {
+    	return Authorization.isCustomer(identity);
+    }
+    
     @PostConstruct
     public void initNewUser() {
         newUser = new User();
@@ -85,6 +102,11 @@ public class UserController extends BaseAuthenticator{
         					"Good password"));
         			setStatus(AuthenticationStatus.SUCCESS);
         			setUser(userFromDb);
+//        			if (userFromDb.getRole().equals("admin")) {
+//            			facesContext.getExternalContext().redirect("admin_page.xhtml");
+//        			}else {
+//            			facesContext.getExternalContext().redirect("user_profile.xhtml");
+//        			}
     			}else {
     				//redirect to login failed
     				facesContext.addMessage("loginForm:passwordHash", new FacesMessage(
