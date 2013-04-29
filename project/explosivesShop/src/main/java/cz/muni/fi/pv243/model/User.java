@@ -38,7 +38,7 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 	@ValidEmail
 	private String email;
 	@NotNull
-	@Size(min = 1, max = 50)
+	@Size(min = 1, max = 250)
 	private String passwordHash;
 	@OneToOne(fetch=FetchType.EAGER, orphanRemoval=true)
 	private ShoppingCart cart;

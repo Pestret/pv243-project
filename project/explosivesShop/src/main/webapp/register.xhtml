@@ -23,13 +23,16 @@
 				<h:inputText id="email" value="#{newUser.email}" />
 				<h:message for="email" errorClass="invalid" />
 				
-				<h:outputLabel for="passwordHash" value="Password:" />
-				<h:inputSecret id="passwordHash" value="#{newUser.passwordHash}" />
+				<h:outputLabel for="passwordHash" value="Password*:" />
+				<h:inputSecret id="passwordHash" value="#{newUser.passwordHash}" >
+					<f:validator validatorId="passwordValidator" />
+				</h:inputSecret>
 				<h:message for="passwordHash" errorClass="invalid" />
 
 				<h:outputLabel for="address" value="Address:" />
 				<h:inputText id="address" value="#{newUser.address}" />
 				<h:message for="address" errorClass="invalid" />
+				<h:outputText value="*Password must contains one digit from 0-9, one lowercase characters, one uppercase characters	and length at least 6 characters and maximum of 20" />
 			</h:panelGrid>
 
 			<p>
