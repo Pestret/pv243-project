@@ -21,7 +21,7 @@ public class UserManagerImpl implements UserManager {
 	
 	@Override
 	public void create(User user) {
-		if (user == null || user.getId() != null) {
+		if (user == null || user.getIdentificator() != null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
 		em.persist(user);
@@ -29,7 +29,7 @@ public class UserManagerImpl implements UserManager {
 
 	@Override
 	public void update(User user) {
-		if (user == null || user.getId() == null) {
+		if (user == null || user.getIdentificator() == null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
 		em.merge(user);
@@ -37,7 +37,7 @@ public class UserManagerImpl implements UserManager {
 
 	@Override
 	public void delete(User user) {
-		if (user == null || user.getId() == null) {
+		if (user == null || user.getIdentificator() == null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
 		em.remove(user);

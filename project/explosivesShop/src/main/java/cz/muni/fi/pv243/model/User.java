@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
  *
  */
 @Entity
-public class User implements Serializable {
+public class User implements Serializable, org.picketlink.idm.api.User {
 
 	   
 	@Id
@@ -40,7 +40,7 @@ public class User implements Serializable {
 	public User() {
 		super();
 	}   
-	public Long getId() {
+	public Long getIdentificator() {
 		return this.id;
 	}
 
@@ -109,6 +109,14 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", address=" + address
 				+ ", email=" + email + "]";
+	}
+	@Override
+	public String getKey() {
+		return getId();
+	}
+	@Override
+	public String getId() {
+		return email;
 	}
    
 }
