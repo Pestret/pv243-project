@@ -76,13 +76,13 @@ public class UserController extends BaseAuthenticator{
     		User userFromDb = userManager.findByEmail(credentials.getUsername());
     		if (userFromDb == null){
     			setStatus(AuthenticationStatus.FAILURE);
-    			facesContext.addMessage("loginForm:username", new FacesMessage(
+    			facesContext.addMessage("loginForm:email", new FacesMessage(
     					"Non existing user"));
     		} else {
     			if (userFromDb.getPasswordHash().equals(((PasswordCredential)credentials.getCredential()).getValue())) {
     				//login success
     				facesContext.addMessage("loginForm:passwordHash", new FacesMessage(
-        					"Wrong password"));
+        					"Good password"));
         			setStatus(AuthenticationStatus.SUCCESS);
         			setUser(userFromDb);
     			}else {
