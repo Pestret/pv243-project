@@ -15,6 +15,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import cz.muni.fi.pv243.model.validation.ValidEmail;
+import cz.muni.fi.pv243.model.validation.ValidName;
 /**
  * Entity implementation class for Entity: User
  *
@@ -27,7 +28,7 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 	@GeneratedValue
 	private Long id;
 	@NotNull
-	@Size(min = 1, max = 50)
+	@ValidName
 	private String name;
 	@NotNull
 	@Size(min = 1, max = 80)
