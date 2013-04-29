@@ -15,6 +15,6 @@ public class Encoder {
 		digest.reset();
 		digest.update(salt.getBytes());
 		
-		return Base64.encodeBytes(digest.digest());
+		return Base64.encodeBytes(digest.digest(password.getBytes()));
 	}
 }

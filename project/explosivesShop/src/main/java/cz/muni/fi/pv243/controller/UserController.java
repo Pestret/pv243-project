@@ -31,6 +31,7 @@ import org.picketlink.idm.impl.api.PasswordCredential;
 
 import cz.muni.fi.pv243.model.User;
 import cz.muni.fi.pv243.security.Authorization;
+import cz.muni.fi.pv243.security.Encoder;
 import cz.muni.fi.pv243.service.UserManager;
 
 @Model
@@ -90,13 +91,13 @@ public class UserController extends BaseAuthenticator{
 	@Override
 	public void authenticate() {
 		try {
-    		User userFromDb = userManager.findByEmail(credentials.getUsername());
-    		if (userFromDb == null){
+			User userFromDb = userManager.findByEmail(credentials.getUsername());
+			if (userFromDb == null){
     			setStatus(AuthenticationStatus.FAILURE);
     			facesContext.addMessage("loginForm:email", new FacesMessage(
     					"Non existing user"));
     		} else {
-    			if (userFromDb.getPasswordHash().equals(((PasswordCredential)credentials.getCredential()).getValue())) {
+    			if (userFromDb.getPasswordHash().equals(Encoder.encode(((PasswordCredential)credentials.getCredential()).getValue(), credentials.getUsername()))) {
     				//login success
     				facesContext.addMessage("loginForm:passwordHash", new FacesMessage(
         					"Good password"));
