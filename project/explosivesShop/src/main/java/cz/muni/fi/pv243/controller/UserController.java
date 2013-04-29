@@ -81,10 +81,14 @@ public class UserController extends BaseAuthenticator{
     		} else {
     			if (userFromDb.getPasswordHash().equals(((PasswordCredential)credentials.getCredential()).getValue())) {
     				//login success
+    				facesContext.addMessage("loginForm:passwordHash", new FacesMessage(
+        					"Wrong password"));
         			setStatus(AuthenticationStatus.SUCCESS);
         			setUser(userFromDb);
     			}else {
     				//redirect to login failed
+    				facesContext.addMessage("loginForm:passwordHash", new FacesMessage(
+        					"Wrong password"));
         			setStatus(AuthenticationStatus.FAILURE);
     			}
     		}
