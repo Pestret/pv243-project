@@ -104,6 +104,7 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 		this.passwordHash = passwordHash;
 	}
 
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
