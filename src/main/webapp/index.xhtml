@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h1>The last page you'll ever see...</h1>
+
+		<div>
+			<p>Luckily deployed, enjoy your stay...</p>
+		</div>
+
+		<h:link outcome="/login.xhtml">
+		<h:outputLabel value="Login"/>
+		</h:link>
+		<br /><br />
+		<h:link outcome="/register.xhtml">
+		<h:outputLabel value="Register"/>
+		</h:link>
+		<br /><br />
+
+		<h2>Members</h2>
+		<h:panelGroup rendered="#{empty users}">
+			<em>No registered members.</em>
+		</h:panelGroup>
+		<h:dataTable var="_user" value="#{users}"
+			rendered="#{not empty users}" styleClass="simpletablestyle">
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+                #{_user.identificator}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Email</f:facet>
+                #{_user.email}
+            </h:column>
+			<f:facet name="footer">
+			</f:facet>
+		</h:dataTable>
+		<br />
+		<h:panelGroup rendered="#{empty products}">
+			<em>No products.</em>
+		</h:panelGroup>
+		<h:dataTable var="_product" value="#{products}"
+			rendered="#{not empty products}" styleClass="simpletablestyle">
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+                #{_product.id}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Name</f:facet>
+                #{_product.name}
+            </h:column>
+			<f:facet name="footer">
+			</f:facet>
+		</h:dataTable>
+	</ui:define>
+</ui:composition>

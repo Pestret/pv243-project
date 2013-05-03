@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h1>Login page</h1>
+
+		<div>
+			<p>Feel free to log in! Don't have an account yet? Do <h:link outcome="/register.xhtml">
+		<h:outputLabel value="register!"/>	
+		</h:link></p>
+		</div>
+
+		<h:form id="loginForm">
+			<h2>User Login</h2>
+			
+			<h:panelGrid columns="3" columnClasses="titleCell">
+
+				<h:outputLabel for="email" value="Email:" />
+				<h:inputText id="email" value="#{credentials.username}" />
+				<h:message for="email" errorClass="invalid" />
+				
+				<h:outputLabel for="passwordHash" value="Password:" />
+				<h:inputSecret id="passwordHash" value="#{credentials.password}" />
+				<h:message for="passwordHash" errorClass="invalid" />
+			</h:panelGrid>
+
+			<p>
+				<h:panelGrid columns="2">
+					<h:commandButton id="login"
+						action="#{identity.login}" value="Login"
+						styleClass="Login" />
+					<h:messages styleClass="messages" errorClass="invalid"
+						infoClass="valid" warnClass="warning" globalOnly="true" />
+				</h:panelGrid>
+			</p>
+		</h:form>
+	</ui:define>
+</ui:composition>
