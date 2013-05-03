@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -20,6 +21,7 @@ import cz.muni.fi.pv243.model.validation.ValidName;
  * 
  */
 @Entity
+@Table(name="\"User\"")
 public class User implements Serializable, org.picketlink.idm.api.User {
 
 	@Id
