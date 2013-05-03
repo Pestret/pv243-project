@@ -21,7 +21,7 @@ import cz.muni.fi.pv243.model.validation.ValidName;
  * 
  */
 @Entity
-@Table(name="\"User\"")
+@Table(name="ShopUser")
 public class User implements Serializable, org.picketlink.idm.api.User {
 
 	@Id
