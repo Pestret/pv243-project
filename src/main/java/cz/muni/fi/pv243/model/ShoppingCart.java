@@ -17,7 +17,7 @@ public class ShoppingCart implements Serializable {
 
 	   
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@OneToMany(fetch=FetchType.EAGER, orphanRemoval=true)
 	@NotNull
