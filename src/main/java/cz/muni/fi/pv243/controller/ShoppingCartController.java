@@ -11,9 +11,9 @@ import javax.inject.Inject;
 
 import org.jboss.seam.security.Identity;
 
+import cz.muni.fi.pv243.model.OrderItem;
 import cz.muni.fi.pv243.model.Product;
 import cz.muni.fi.pv243.model.ShoppingCart;
-import cz.muni.fi.pv243.model.OrderItem;
 import cz.muni.fi.pv243.service.OrderItemManager;
 import cz.muni.fi.pv243.service.ProductManager;
 import cz.muni.fi.pv243.service.ShoppingCartManager;
@@ -39,6 +39,7 @@ public class ShoppingCartController {
 	 
 	 @PostConstruct
 	 public void initShoppingCart(){
+		 cart = new ShoppingCart();
 		 List<OrderItem> list = new ArrayList<OrderItem>();
 		 cart.setItems(list);
 		 //cart.setUser(identity.getUser());
@@ -47,17 +48,29 @@ public class ShoppingCartController {
 	 
 	 public void addToCart(Long productId, int quantity){
 		 Product product = productManager.get(productId);
+		 List<OrderItem> items = cart.getItems();
+		 for (OrderItem element : items) {
+			 if(element.getProduct().equals(product)){
+				 element.setQuantity(element.getQuantity()+quantity);
+				 orderManager.update(element);
+				 return;
+			 }
+		 }
 		 OrderItem order = new OrderItem();
 		 order.setProduct(product);
 		 order.setQuantity(quantity);
 		 orderManager.create(order);
-		 
-		 
-		 
+		 items.add(order);
+		 //propaguji se zmeny do kosiku bez implicitniho ulozeni??
 	 }
 	 
-	 public void deleteProductInCart(Long productId){
-		 
+	 public void deleteOrderItemInCart(Long orderItemId){
+		 OrderItem item = orderManager.get(orderItemId);
+		 List<OrderItem> items = cart.getItems();
+		 if(items.contains(item)){
+			 items.remove(item);
+		 }
+		//propaguji se zmeny do kosiku bez implicitniho ulozeni??
 	 }
 	 
 	 public List<OrderItem> getAll(){
@@ -65,28 +78,21 @@ public class ShoppingCartController {
 	 }
 	 
 	 public BigDecimal getTotalPrice(){
-		 return new BigDecimal(0);
+		 List<OrderItem> items = getAll();
+		 BigDecimal sum = new BigDecimal(0);
+		 for(int i=0;i<items.size();i++){
+			 sum = sum.add(getItemPrice((items.get(i)).getId()));
+		 }
+		 return sum;
 	 }
 	 
-	 public BigDecimal getItemPrice(Long productId){
-		 return new BigDecimal(0);
+	 public BigDecimal getItemPrice(Long orderItemId){
+		 OrderItem item = orderManager.get(orderItemId);
+		 return ((item.getProduct()).getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
 	 }
 	 
 	 public void clearCart(){
-		 
+		 cart.setItems(new ArrayList<OrderItem>());
 	 }
-	 
-	 private void addOrderItem(OrderItem item){
-		 List<OrderItem> items = cart.getItems();
-		 if(items.contains(item)){
-			for(int i=0;i<items.size();i++){
-				OrderItem inCart = items.get(i);
-				if(inCart.equals(item)){
-					inCart.setQuantity((inCart.getQuantity()+item.getQuantity()));
-				}
-			}
-		 } else {
-			 items.add(item);
-		 }
-	 }
+
 }
