@@ -12,20 +12,13 @@
 		</div>
 
 		<h:link outcome="/login.xhtml">
-			<h:outputLabel value="Login" />
+		<h:outputLabel value="Login"/>
 		</h:link>
-		<br />
-		<br />
+		<br /><br />
 		<h:link outcome="/register.xhtml">
-			<h:outputLabel value="Register" />
+		<h:outputLabel value="Register"/>
 		</h:link>
-		<br />
-		<br />
-		<h:link outcome="/cart.xhtml">
-			<h:outputLabel value="Cart" />
-		</h:link>
-		<br />
-		<br />
+		<br /><br />
 
 		<h2>Members</h2>
 		<h:panelGroup rendered="#{empty users}">
@@ -58,17 +51,6 @@
 				<f:facet name="header">Name</f:facet>
                 #{_product.name}
             </h:column>
-			<h:column>
-				<f:facet name="header"></f:facet>
-				<h:form>
-				<h:inputText id="quantity" value="1" var="quant">
-					<f:convertNumber minIntegerDigits="1" maxIntegerDigits="15" integerOnly="true" />
-				</h:inputText>
-					<h:commandButton id="add"
-						action="#{shoppingCartController.addToCart(_product.id, quant)}"
-						value="Add to cart" />
-				</h:form>
-			</h:column>
 			<f:facet name="footer">
 			</f:facet>
 		</h:dataTable>

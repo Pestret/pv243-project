@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+
+	<ui:define name="content">
+		<h1>Shopping cart</h1>
+
+		<h2>Items</h2>
+		<h:form>
+			<h:commandButton id="add"
+				action="#{shoppingCartController.addToCart(100, 2)}"
+				value="Add to cart" />
+		</h:form>
+		<h:panelGroup rendered="#{empty shoppingCartController.all}">
+
+			<em>The cart is empty.</em>
+		</h:panelGroup>
+		<h:dataTable var="_item" value="#{shoppingCartController.all}"
+			rendered="#{not empty items}" styleClass="simpletablestyle">
+			<h:column>
+				<f:facet name="header">Id</f:facet>
+                #{_item.id}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Product</f:facet>
+                #{_item.product.name}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Quantity</f:facet>
+                #{_item.quantity}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Price</f:facet>
+                #{shoppingCartController.getItemPrice(_item.id)}
+            </h:column>
+			<h:column>
+				<f:facet name="header"></f:facet>
+				<h:form>
+					<h:commandButton id="remove"
+						action="#{shoppingCartController.deleteOrderItemInCart(_item.id)}"
+						value="Remove" styleClass="remove" />
+				</h:form>
+			</h:column>
+			<f:facet name="footer">
+			</f:facet>
+		</h:dataTable>
+
+		<p>
+			<h:form>
+				<h:panelGrid columns="2">
+					<h:commandButton id="order"
+						action="#{shoppingCartController.clearCart()}" value="Order"
+						styleClass="register" />
+					<h:commandButton id="clear"
+						action="#{shoppingCartController.clearCart()}" value="Clear"
+						styleClass="register" />
+				</h:panelGrid>
+			</h:form>
+		</p>
+	</ui:define>
+</ui:composition>
