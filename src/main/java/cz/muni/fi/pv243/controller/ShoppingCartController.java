@@ -60,6 +60,7 @@ public class ShoppingCartController {
 		 for (OrderItem element : items) {
 			 if(element.getProduct().equals(product)){
 				 element.setQuantity(element.getQuantity()+quantity);
+				 setQuantity(1);
 				 return;
 			 }
 		 }
@@ -67,6 +68,7 @@ public class ShoppingCartController {
 		 order.setProduct(product);
 		 order.setQuantity(quantity);
 		 items.add(order);
+		 setQuantity(1);
 	 }
 	 
 	 public void deleteOrderItemInCart(Product product){
