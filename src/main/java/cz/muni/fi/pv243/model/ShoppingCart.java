@@ -3,6 +3,7 @@ package cz.muni.fi.pv243.model;
 import java.io.Serializable;
 import java.lang.Long;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.ejb.Stateful;
 import javax.inject.Named;
@@ -17,16 +18,16 @@ import javax.validation.constraints.NotNull;
 @Entity
 @SessionScoped
 @Stateful
-@Named ("cart")
 public class ShoppingCart implements Serializable {
 
+	
 	   
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@OneToMany(fetch=FetchType.EAGER, orphanRemoval=true)
 	@NotNull
-	private List<OrderItem> items;
+	private List<OrderItem> items = new CopyOnWriteArrayList<OrderItem>();
 	private User user;
 	private static final long serialVersionUID = 1L;
 	private boolean isFinished = false;

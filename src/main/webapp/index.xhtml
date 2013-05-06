@@ -60,12 +60,10 @@
             </h:column>
 			<h:column>
 				<f:facet name="header"></f:facet>
-				<h:form>
-				<h:inputText id="quantity" value="1" var="quant">
-					<f:convertNumber minIntegerDigits="1" maxIntegerDigits="15" integerOnly="true" />
-				</h:inputText>
+				<h:form id="quantityForm">
+					<h:inputText value="#{shoppingCartController.quantity}" converter="javax.faces.Long" />
 					<h:commandButton id="add"
-						action="#{shoppingCartController.addToCart(_product.id, quant)}"
+						action="#{shoppingCartController.addToCart(_product.id, shoppingCartController.quantity)}"
 						value="Add to cart" />
 				</h:form>
 			</h:column>

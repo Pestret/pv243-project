@@ -34,13 +34,13 @@
             </h:column>
 			<h:column>
 				<f:facet name="header">Price</f:facet>
-                #{shoppingCartController.getItemPrice(_item.id)}
+                #{_item.product.price * _item.quantity}
             </h:column>
 			<h:column>
 				<f:facet name="header"></f:facet>
 				<h:form>
 					<h:commandButton id="remove"
-						action="#{shoppingCartController.deleteOrderItemInCart(_item.id)}"
+						action="#{shoppingCartController.deleteOrderItemInCart(_item.product)}"
 						value="Remove" styleClass="remove" />
 				</h:form>
 			</h:column>
