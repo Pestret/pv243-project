@@ -1,5 +1,6 @@
 package cz.muni.fi.pv243.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class ShoppingCartController {
 	 private OrderItemManager orderManager;
 	 
 	 private int quantity = 1;
+	 private BigDecimal totalPrice = new BigDecimal(0);
 	 
 	 public int getQuantity() {
 		return quantity;
@@ -78,6 +80,14 @@ public class ShoppingCartController {
 				 items.remove(forItem);
 			 }
 		 }
+	 }
+	 
+	 public BigDecimal getTotalPrice(){
+		 totalPrice = new BigDecimal(0);
+		 for(OrderItem item: cart.getItems()){
+			 totalPrice = totalPrice.add(item.getProduct().getPrice().multiply(new BigDecimal(item.getQuantity())));
+		 }
+		 return totalPrice;
 	 }
 	 
 	 public List<OrderItem> getAll(){
