@@ -214,6 +214,11 @@
 			<artifactId>seam-security</artifactId>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>jboss</groupId>
+			<artifactId>jboss-annotations-ejb3</artifactId>
+			<version>4.2.2.GA</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

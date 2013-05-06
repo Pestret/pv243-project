@@ -10,9 +10,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.jboss.annotation.ejb.Clustered;
+
 import cz.muni.fi.pv243.model.ShoppingCart;
 
 @Stateful
+@Clustered
 public class ShoppingCartManagerImpl implements ShoppingCartManager {
 	
 	@Inject
