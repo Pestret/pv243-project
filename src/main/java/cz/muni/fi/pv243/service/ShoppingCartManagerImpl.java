@@ -11,11 +11,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.jboss.annotation.ejb.Clustered;
+import org.jboss.ha.framework.interfaces.RoundRobin;
 
 import cz.muni.fi.pv243.model.ShoppingCart;
 
 @Stateful
-@Clustered
+@Clustered(loadBalancePolicy=RoundRobin.class)
 public class ShoppingCartManagerImpl implements ShoppingCartManager {
 	
 	@Inject
