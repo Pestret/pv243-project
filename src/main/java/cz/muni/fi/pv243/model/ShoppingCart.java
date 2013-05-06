@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.lang.Long;
 import java.util.List;
 
+import javax.ejb.Stateful;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -12,7 +15,9 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-
+@SessionScoped
+@Stateful
+@Named ("cart")
 public class ShoppingCart implements Serializable {
 
 	   

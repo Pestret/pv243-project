@@ -19,7 +19,7 @@
 			<em>The cart is empty.</em>
 		</h:panelGroup>
 		<h:dataTable var="_item" value="#{shoppingCartController.all}"
-			rendered="#{not empty items}" styleClass="simpletablestyle">
+			rendered="#{not empty shoppingCartController.all}" styleClass="simpletablestyle">
 			<h:column>
 				<f:facet name="header">Id</f:facet>
                 #{_item.id}

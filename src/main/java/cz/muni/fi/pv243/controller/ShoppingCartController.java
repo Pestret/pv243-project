@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.jboss.seam.security.Identity;
 
@@ -39,20 +40,32 @@ public class ShoppingCartController {
 	 
 	 @PostConstruct
 	 public void initShoppingCart(){
-		 cart = new ShoppingCart();
-		 List<OrderItem> list = new ArrayList<OrderItem>();
-		 cart.setItems(list);
-		 //cart.setUser(identity.getUser());
-		 cartManager.create(cart);
+		 if (cart == null) {
+			 cart = new ShoppingCart();
+			 List<OrderItem> list = new ArrayList<OrderItem>();
+			 cart.setItems(list);
+			 //cart.setUser(identity.getUser());
+			 cartManager.create(cart);
+		 }	 
+	 }
+	 
+	 public void addToCart (Long productId, Long quantity) {
+		 addToCart(productId, quantity.intValue());
 	 }
 	 
 	 public void addToCart(Long productId, int quantity){
 		 Product product = productManager.get(productId);
+		 System.out.println(product);
 		 List<OrderItem> items = cart.getItems();
+		 System.out.println(items);
 		 for (OrderItem element : items) {
+			 System.out.println(element.getProduct());
+			 System.out.println(element.getProduct().equals(product));
 			 if(element.getProduct().equals(product)){
 				 element.setQuantity(element.getQuantity()+quantity);
+				 System.out.println(cart.getItems());
 				 orderManager.update(element);
+				 System.out.println(cart.getItems());
 				 return;
 			 }
 		 }
@@ -72,7 +85,7 @@ public class ShoppingCartController {
 		 }
 		//propaguji se zmeny do kosiku bez implicitniho ulozeni??
 	 }
-	 
+	 @Named (value = "allItems")
 	 public List<OrderItem> getAll(){
 		 return cart.getItems();
 	 }
