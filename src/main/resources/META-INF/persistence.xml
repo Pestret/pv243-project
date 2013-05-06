@@ -9,19 +9,14 @@
 
 		<!-- LOCALE SETTINGS -->
 		<!-- <jta-data-source>java:jboss/datasources/explosivesShopDS</jta-data-source> -->
-		
+
 		<!-- OpenShift SETTINGS -->
 		<jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source>
-		
-		<properties>
-		
-			<!-- LOCALE SETTINGS -->
-			<!--
-			 <property name="hibernate.hbm2ddl.auto" value="create-drop" /> 
-			 -->
 
+		<properties>
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.show_sql" value="true" />
 		</properties>
-		
+
 	</persistence-unit>
 </persistence>
