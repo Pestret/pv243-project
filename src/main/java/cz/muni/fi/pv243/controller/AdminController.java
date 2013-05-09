@@ -39,6 +39,9 @@ public class AdminController {
 	public BigDecimal getTotalPrice(Long shoppCartId){
 		 ShoppingCart cart = cartManager.get(shoppCartId);
 		 totalPrice = new BigDecimal(0);
+		 System.out.println("-------------------------------------------------");
+		 System.out.println(cart.getItems());
+		 System.out.println(orderManager.findAll());
 		 for(OrderItem item: cart.getItems()){
 			 totalPrice = totalPrice.add(item.getProduct().getPrice().multiply(new BigDecimal(item.getQuantity())));
 		 }

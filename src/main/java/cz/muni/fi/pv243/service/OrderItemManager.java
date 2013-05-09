@@ -1,5 +1,7 @@
 package cz.muni.fi.pv243.service;
 
+import java.util.List;
+
 import cz.muni.fi.pv243.model.OrderItem;
 
 public interface OrderItemManager {
@@ -12,4 +14,5 @@ public interface OrderItemManager {
 	
 	OrderItem get(Long id);
 	
+	List<OrderItem> findAll();
 }

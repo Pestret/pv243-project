@@ -2,6 +2,7 @@ package cz.muni.fi.pv243.model;
 
 import java.io.Serializable;
 import java.lang.Long;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -29,7 +30,7 @@ public class ShoppingCart implements Serializable {
 	private User user;
 	private static final long serialVersionUID = 1L;
 	private boolean isFinished = false;
-	public ShoppingCart() {
+	public ShoppingCart() {	
 		super();
 	}   
 	public Long getId() {

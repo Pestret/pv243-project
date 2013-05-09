@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -17,11 +18,18 @@ import cz.muni.fi.pv243.service.OrderItemManager;
 import cz.muni.fi.pv243.service.ProductManager;
 import cz.muni.fi.pv243.service.ShoppingCartManager;
 import cz.muni.fi.pv243.service.UserManager;
+import java.io.Serializable;
 
+@SessionScoped
 @Model
-public class ShoppingCartController {
+public class ShoppingCartController implements Serializable {
 
-	 @Inject
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2118963139420656282L;
+
+	@Inject
 	 private FacesContext facesContext;
 
 	 @Inject
@@ -106,6 +114,14 @@ public class ShoppingCartController {
 		 //TODO
 		 //check if user is logged in, otherwise next line will be nullpointer
 		 cart.setUser(userManager.findByEmail(identity.getUser().getId()));
-		 cartManager.create(cart);
+//		 System.out.println(cart.getItems());
+//		 for (OrderItem item : cart.getItems()) {
+//			 orderManager.create(item);
+//		 }
+		 ShoppingCart newCart = new ShoppingCart();
+		 newCart.setFinished(false);
+		 newCart.setItems(getAll());
+		 newCart.setUser(cart.getUser());
+		 cartManager.create(newCart);
 	 }
 }
