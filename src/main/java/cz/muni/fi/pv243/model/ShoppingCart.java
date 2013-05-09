@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.ejb.Stateful;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,8 +24,9 @@ public class ShoppingCart implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@OneToMany(fetch=FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER, orphanRemoval=true)
 	@NotNull
+	@Column()
 	private List<OrderItem> items = new CopyOnWriteArrayList<OrderItem>();
 	private User user;
 	private static final long serialVersionUID = 1L;
