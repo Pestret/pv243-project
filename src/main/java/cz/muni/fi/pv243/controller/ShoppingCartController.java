@@ -98,4 +98,7 @@ public class ShoppingCartController {
 		 cart.setItems(new ArrayList<OrderItem>());
 	 }
 
+	 public void order(){
+		 cartManager.create(cart);
+	 }
 }
