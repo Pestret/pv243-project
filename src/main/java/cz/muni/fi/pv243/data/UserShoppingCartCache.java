@@ -17,6 +17,7 @@ import javax.persistence.criteria.Root;
 import org.jboss.seam.security.Identity;
 import cz.muni.fi.pv243.model.ShoppingCart;
 import cz.muni.fi.pv243.model.User;
+import cz.muni.fi.pv243.service.UserManager;
 
 @RequestScoped
 public class UserShoppingCartCache {
@@ -25,6 +26,9 @@ public class UserShoppingCartCache {
 	
 	@Inject
 	private Identity identity;
+	
+	@Inject
+	private UserManager userManager;
 	
 	@Inject
 	private Logger log;
@@ -52,7 +56,8 @@ public class UserShoppingCartCache {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<ShoppingCart> criteria = cb.createQuery(ShoppingCart.class);
         Root<ShoppingCart> carts = criteria.from(ShoppingCart.class);
-        User user = (cz.muni.fi.pv243.model.User) identity.getUser();
+//        User user = (cz.muni.fi.pv243.model.User) identity.getUser();
+        User user = userManager.findByEmail(identity.getUser().getId());
     	criteria.select(carts).orderBy(cb.asc(carts.get("id")));
     	Expression<User> userExpression = carts.get("user");
     	List<ShoppingCart> allOrders = em.createQuery(

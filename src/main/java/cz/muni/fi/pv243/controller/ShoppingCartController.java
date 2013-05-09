@@ -114,14 +114,6 @@ public class ShoppingCartController implements Serializable {
 		 //TODO
 		 //check if user is logged in, otherwise next line will be nullpointer
 		 cart.setUser(userManager.findByEmail(identity.getUser().getId()));
-//		 System.out.println(cart.getItems());
-//		 for (OrderItem item : cart.getItems()) {
-//			 orderManager.create(item);
-//		 }
-		 ShoppingCart newCart = new ShoppingCart();
-		 newCart.setFinished(false);
-		 newCart.setItems(getAll());
-		 newCart.setUser(cart.getUser());
-		 cartManager.create(newCart);
+		 cartManager.create(cart);
 	 }
 }

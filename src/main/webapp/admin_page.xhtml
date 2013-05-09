@@ -32,6 +32,12 @@
 				<f:facet name="header">Total price</f:facet>
                 #{adminController.getTotalPrice(_carts.id)}
             </h:column>
+            <h:column>
+				<f:facet name="header">Details</f:facet>
+                <h:commandButton id="getOutOfHere"
+						action="#{identity.logout()}"
+						value="Order details" />
+            </h:column>
 			<f:facet name="footer">
 			</f:facet>
 		</h:dataTable>

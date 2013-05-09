@@ -1,5 +1,6 @@
 package cz.muni.fi.pv243.controller;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -39,9 +40,6 @@ public class AdminController {
 	public BigDecimal getTotalPrice(Long shoppCartId){
 		 ShoppingCart cart = cartManager.get(shoppCartId);
 		 totalPrice = new BigDecimal(0);
-		 System.out.println("-------------------------------------------------");
-		 System.out.println(cart.getItems());
-		 System.out.println(orderManager.findAll());
 		 for(OrderItem item: cart.getItems()){
 			 totalPrice = totalPrice.add(item.getProduct().getPrice().multiply(new BigDecimal(item.getQuantity())));
 		 }
