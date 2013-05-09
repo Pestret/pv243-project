@@ -3,57 +3,38 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
 	template="/WEB-INF/templates/default.xhtml">
 
 	<ui:define name="content">
 		<h1>User page</h1>
 
-<p>
-			<h:form>
-				<h:panelGrid columns="1">
-					<h:commandButton id="order"
-						action="dlg.show()" value="Test detail"
-						styleClass="register" />
-				</h:panelGrid>
-			</h:form>
-
-		</p>
-					
 		<h:panelGroup rendered="#{empty userShoppingCartCache.finishedOrders}">
 			<em>No finished orders.</em>
 		</h:panelGroup>
-
-		<h:form id="form">
-			<h:dataTable var="_item"
-				value="#{userShoppingCartCache.finishedOrders}"
+    
+    	<h:form id="form">
+			<h:dataTable var="_item" value="#{userShoppingCartCache.finishedOrders}"
 				rendered="#{not empty userShoppingCartCache.finishedOrders}"
 				styleClass="simpletablestyle">
 				<h:column>
 					<f:facet name="header">Id</f:facet>
                 #{_item.id}
             </h:column>
+		
 				<h:column id="col">
 					<f:facet name="header">Price</f:facet>
 					<h:outputLabel id="outtxt"
-						value="000" />
+						value="#{userProfileController.priceOfOrder(_item.id)}" />
 				</h:column>
-				<h:column>
+			<h:column>
 					<f:facet name="header"></f:facet>
-					<h:outputLink onclick="dlg.show()">
-						<h:outputText value="Detail" />
-					</h:outputLink>
+					<h:commandButton id="remove"
+						action="#"
+						value="Detail"/>
 				</h:column>
 			</h:dataTable>
 		</h:form>
-
-		<p:dialog id="dialog" header="Detail of Order" widgetVar="dlg" resizable="false">
-
-			
-				<h:outputText value="bal bla lba" />
-			
-			
-		</p:dialog>
-
 	</ui:define>
 </ui:composition>
