@@ -13,26 +13,60 @@
 		<h:panelGroup rendered="#{empty userShoppingCartCache.finishedOrders}">
 			<em>No finished orders.</em>
 		</h:panelGroup>
-    
-    	<h:form id="form">
-			<h:dataTable var="_item" value="#{userShoppingCartCache.finishedOrders}"
+
+		<h:form id="form2">
+			<h:dataTable var="_item"
+				value="#{userShoppingCartCache.finishedOrders}"
 				rendered="#{not empty userShoppingCartCache.finishedOrders}"
 				styleClass="simpletablestyle">
 				<h:column>
 					<f:facet name="header">Id</f:facet>
                 #{_item.id}
             </h:column>
-		
+
 				<h:column id="col">
 					<f:facet name="header">Price</f:facet>
 					<h:outputLabel id="outtxt"
 						value="#{userProfileController.priceOfOrder(_item.id)}" />
 				</h:column>
-			<h:column>
+				<h:column>
 					<f:facet name="header"></f:facet>
-					<h:commandButton id="remove"
-						action="#"
-						value="Detail"/>
+					<h:commandButton id="detailF" action="#" value="Detail" />
+				</h:column>
+			</h:dataTable>
+		</h:form>
+
+		<h:panelGroup
+			rendered="#{empty userShoppingCartCache.unfinishedOrders}">
+			<em>No unfinished orders.</em>
+		</h:panelGroup>
+
+		<h:form id="form">
+			<h:dataTable var="_item2"
+				value="#{userShoppingCartCache.unfinishedOrders}"
+				rendered="#{not empty userShoppingCartCache.unfinishedOrders}"
+				styleClass="simpletablestyle">
+				<h:column>
+					<f:facet name="header">Id</f:facet>
+                #{_item2.id}
+            </h:column>
+
+				<h:column id="colu">
+					<f:facet name="header">Price</f:facet>
+					<h:outputLabel id="outtxt"
+						value="#{userProfileController.priceOfOrder(_item2.id)}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:commandButton id="order" action="#" value="Order" />
+				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:commandButton id="detail" action="#" value="Detail" />
+				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:commandButton id="remove" action="#" value="Remove" />
 				</h:column>
 			</h:dataTable>
 		</h:form>
