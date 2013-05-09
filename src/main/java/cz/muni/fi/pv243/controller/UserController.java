@@ -103,11 +103,6 @@ public class UserController extends BaseAuthenticator{
         					"Good password"));
         			setStatus(AuthenticationStatus.SUCCESS);
         			setUser(userFromDb);
-//        			if (userFromDb.getRole().equals("admin")) {
-//            			facesContext.getExternalContext().redirect("admin_page.xhtml");
-//        			}else {
-//            			facesContext.getExternalContext().redirect("user_profile.xhtml");
-//        			}
     			}else {
     				//redirect to login failed
     				facesContext.addMessage("loginForm:passwordHash", new FacesMessage(
