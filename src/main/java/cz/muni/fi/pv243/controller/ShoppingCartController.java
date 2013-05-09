@@ -16,6 +16,7 @@ import cz.muni.fi.pv243.model.ShoppingCart;
 import cz.muni.fi.pv243.service.OrderItemManager;
 import cz.muni.fi.pv243.service.ProductManager;
 import cz.muni.fi.pv243.service.ShoppingCartManager;
+import cz.muni.fi.pv243.service.UserManager;
 
 @Model
 public class ShoppingCartController {
@@ -37,6 +38,9 @@ public class ShoppingCartController {
 	 
 	 @Inject
 	 private OrderItemManager orderManager;
+	 
+	 @Inject
+	 private UserManager userManager;
 	 
 	 private int quantity = 1;
 	 private BigDecimal totalPrice = new BigDecimal(0);
@@ -99,6 +103,9 @@ public class ShoppingCartController {
 	 }
 
 	 public void order(){
+		 //TODO
+		 //check if user is logged in, otherwise next line will be nullpointer
+		 cart.setUser(userManager.findByEmail(identity.getUser().getId()));
 		 cartManager.create(cart);
 	 }
 }

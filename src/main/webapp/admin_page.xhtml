@@ -11,11 +11,11 @@
 			<p>From here admin can see all shopping carts etc.</p>
 		</div>
 		<h2>Shopping carts</h2>
-		<h:panelGroup rendered="#{empty _carts}">
+		<h:panelGroup rendered="#{empty allCarts}">
 			<em>No shopping carts.</em>
 		</h:panelGroup>
 		<h:dataTable var="_carts" value="#{allCarts}"
-			rendered="#{not empty _carts}" styleClass="simpletablestyle">
+			rendered="#{not empty allCarts}" styleClass="simpletablestyle">
 			<h:column>
 				<f:facet name="header">User name</f:facet>
                 #{_carts.user.name}

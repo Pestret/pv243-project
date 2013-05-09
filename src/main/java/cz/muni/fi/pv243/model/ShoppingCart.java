@@ -15,8 +15,6 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-@SessionScoped
-@Stateful
 public class ShoppingCart implements Serializable {
 
 	
@@ -24,10 +22,10 @@ public class ShoppingCart implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER, orphanRemoval=true)
+	@OneToMany(cascade={CascadeType.PERSIST}, fetch=FetchType.EAGER, orphanRemoval=true)
 	@NotNull
-	@Column()
 	private List<OrderItem> items = new CopyOnWriteArrayList<OrderItem>();
+	@OneToOne (fetch=FetchType.EAGER)
 	private User user;
 	private static final long serialVersionUID = 1L;
 	private boolean isFinished = false;
