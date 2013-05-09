@@ -8,7 +8,9 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.Reception;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -36,10 +38,14 @@ public class UserShoppingCartCache {
 	private List<ShoppingCart> unfinishedOrders;
 	private List<ShoppingCart> finishedOrders;
 	
+	@Produces
+	@Named(value = "userUnfinished")
 	public List<ShoppingCart> getUnfinishedOrders () {
 		return unfinishedOrders;
 	}
-	
+
+	@Produces
+	@Named(value = "userFinished")
 	public List<ShoppingCart> getFinishedOrders () {
 		return finishedOrders;
 	}

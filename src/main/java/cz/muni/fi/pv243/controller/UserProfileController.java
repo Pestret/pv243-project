@@ -16,7 +16,6 @@ import cz.muni.fi.pv243.model.ShoppingCart;
 import cz.muni.fi.pv243.service.OrderItemManager;
 import cz.muni.fi.pv243.service.ProductManager;
 import cz.muni.fi.pv243.service.ShoppingCartManager;
-import cz.muni.fi.pv243.service.UserManager;
 
 @SessionScoped
 @Model
@@ -32,9 +31,6 @@ public class UserProfileController implements Serializable {
 
 	@Inject
 	private ShoppingCartManager cartManager;
-
-	@Inject
-	private ProductManager productManager;
 
 	@Inject
 	private OrderItemManager orderManager;

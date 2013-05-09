@@ -10,14 +10,14 @@
 	<ui:define name="content">
 		<h1>User page</h1>
 
-		<h:panelGroup rendered="#{empty userShoppingCartCache.finishedOrders}">
+		<h:panelGroup rendered="#{empty userFinished}">
 			<em>No finished orders.</em>
 		</h:panelGroup>
 
 		<h:form id="form2">
 			<h:dataTable var="_item"
-				value="#{userShoppingCartCache.finishedOrders}"
-				rendered="#{not empty userShoppingCartCache.finishedOrders}"
+				value="#{userFinished}"
+				rendered="#{not empty userFinished}"
 				styleClass="simpletablestyle">
 				<h:column>
 					<f:facet name="header">Id</f:facet>
@@ -31,20 +31,20 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
-					<h:commandButton id="detailF" action="#" value="Detail" />
+					<h:commandButton id="detailF" action="#{identity.logout()}" value="Detail" />
 				</h:column>
 			</h:dataTable>
 		</h:form>
 
 		<h:panelGroup
-			rendered="#{empty userShoppingCartCache.unfinishedOrders}">
+			rendered="#{empty userUnfinished}">
 			<em>No unfinished orders.</em>
 		</h:panelGroup>
 
 		<h:form id="form">
 			<h:dataTable var="_item2"
-				value="#{userShoppingCartCache.unfinishedOrders}"
-				rendered="#{not empty userShoppingCartCache.unfinishedOrders}"
+				value="#{userUnfinished}"
+				rendered="#{not empty userUnfinished}"
 				styleClass="simpletablestyle">
 				<h:column>
 					<f:facet name="header">Id</f:facet>
@@ -58,15 +58,15 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
-					<h:commandButton id="order" action="#" value="Order" />
+					<h:commandButton id="order" action="#{identity.logout()}" value="Order" />
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
-					<h:commandButton id="detail" action="#" value="Detail" />
+					<h:commandButton id="detail" action="#{identity.logout()}" value="Detail" />
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
-					<h:commandButton id="remove" action="#" value="Remove" />
+					<h:commandButton id="remove" action="#{identity.logout()}" value="Remove" />
 				</h:column>
 			</h:dataTable>
 		</h:form>
