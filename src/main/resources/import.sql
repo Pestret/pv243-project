@@ -16,14 +16,12 @@
 --
 
 -- You can use this file to load seed data into the database using SQL statements
--- insert into Member (id, name, email, phone_number) values (0, 'John Smith', 'john.smith@mailinator.com', '2125551212') 
 insert into ShopUser (id, name, email, address, passwordHash, role) values (99, 'Pepa z depa', 'nebuduToDelat@milujipraci.cz', 'doma', 'totalniH4sH', 'customer')
 insert into ShopUser (id, name, email, address, passwordHash, role) values (98, 'Pepa z depa', 'nebuduToDela5t@milujipraci.cz', 'doma', 'totalniH4sH', 'customer')
 insert into ShopUser (id, name, email, address, passwordHash, role) values (97, 'Pepa z depa2', 'nebuduToDelat2@milujipraci.cz', 'doma2', 'totalniH4sH2', 'customer')
-insert into ShopUser (id, name, email, address, passwordHash, role) values (96, 'Pepa z depa3', 'nekdo@nekdo.cz', 'doma3', 'nekdo', 'customer')
-insert into ShopUser (id, name, email, address, passwordHash, role) values (95, 'admin', 'admin@admin.cz', 'admin', 'admin', 'admin')
+insert into ShopUser (id, name, email, address, passwordHash, role) values (96, 'Testicek', 'user@user.cz', 'doma3', 'HRzVmr1jZaIZBrqn2VKMnD7MKcGgGaF5FUagq4CgxsY=', 'customer')
+insert into ShopUser (id, name, email, address, passwordHash, role) values (95, 'Admin Adminovskij', 'admin@admin.cz', 'adminova ulice', 'KngByKAUMxQwnW6iwZnrvSXX01JMHQLGy3BbXJ7pO/o=', 'admin')
 insert into Product (id, name, description, price, available) values (100, 'Vybusna vrtacka', 'Bum bam ratata...', 250, 4)
 insert into Product (id, name, description, price, available) values (111, 'Praskaci kulicky', 'Vyborne na straseni duchodcu', 2, 150)
 insert into Product (id, name, description, price, available) values (112, 'Papinak s dusenou mrkvi', 'Boston IMPROVED', 5, 50)
 insert into Product (id, name, description, price, available) values (113, 'Tlacenka se strelnym prachem', 'Nom nom nom', 25, 33)
-
