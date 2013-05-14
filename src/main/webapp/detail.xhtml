@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<h1>Detail</h1>
+
+		<div>
+			<p>Information about order.</p>
+		</div>
+		<h2>Shopping cart</h2>
+		<h:panelGroup rendered="#{empty userProfileController.getAllItems()}">
+			<em>No items.</em>
+		</h:panelGroup>
+		<h:dataTable var="_order" value="#{userProfileController.getAllItems()}"
+			rendered="#{not empty userProfileController.getAllItems()}" styleClass="simpletablestyle">
+			<h:column>
+				<f:facet name="header">Item</f:facet>
+                #{_order.product.name}
+            </h:column>
+            <h:column>
+				<f:facet name="header">Quantity</f:facet>
+                #{_order.quantity}
+            </h:column>
+			<f:facet name="footer">
+			</f:facet>
+		</h:dataTable>
+	</ui:define>
+</ui:composition>

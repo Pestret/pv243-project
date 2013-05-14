@@ -1,5 +1,6 @@
 package cz.muni.fi.pv243.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -34,6 +35,8 @@ public class UserProfileController implements Serializable {
 
 	@Inject
 	private OrderItemManager orderManager;
+	
+	private Long cardId;
 
 	public BigDecimal priceOfOrder(Long id) {
 		BigDecimal num = new BigDecimal(0);
@@ -44,4 +47,27 @@ public class UserProfileController implements Serializable {
 		}
 		return num;
 	}
+	
+	public List<OrderItem> getAllItems(){
+		ShoppingCart cart = cartManager.get(getCardId());
+		return cart.getItems();
+	}
+	
+	public void detailRedirect(Long cartId) {
+		setCardId(cartId);
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("detail.jsf");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public Long getCardId() {
+		return cardId;
+	}
+
+	public void setCardId(Long cardId) {
+		this.cardId = cardId;
+	}  
 }
