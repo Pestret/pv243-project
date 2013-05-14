@@ -36,7 +36,7 @@
 				<f:facet name="header">Confirm</f:facet>
                 <h:form>
                 <h:commandButton id="confirm"
-							action="#{adminController.detailRedirect(_carts.id)}"
+							action="#{adminController.confirmOrder(_carts.id)}"
 							value="Confirm" />
                 </h:form>    
             </h:column>
@@ -52,7 +52,7 @@
 				<f:facet name="header">Remove</f:facet>
                 <h:form>
                 <h:commandButton id="remove"
-							action="#{adminController.detailRedirect(_carts.id)}"
+							action="#{adminController.deleteOrder(_carts.id)}"
 							value="Remove" />
                 </h:form>
             </h:column>

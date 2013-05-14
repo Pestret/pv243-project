@@ -67,6 +67,12 @@ public class AdminController {
 			e.printStackTrace();
 		}
 	}
+	 
+	public void confirmOrder(Long id){
+		ShoppingCart cart = cartManager.get(id);
+		cart.setFinished(true);
+		cartManager.update(cart);
+	}
 
 	public Long getCardId() {
 		return cardId;
