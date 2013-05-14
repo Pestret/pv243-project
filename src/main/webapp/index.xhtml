@@ -61,10 +61,10 @@
 			<h:column>
 				<f:facet name="header"></f:facet>
 				<h:form id="quantityForm">
-					<h:inputText value="#{shoppingCartController.quantity}" converter="javax.faces.Long" />
+					<h:inputText id="inTxt" value="#{shoppingCartController.quantity}" converter="javax.faces.Long" onkeypress="if((event.which &lt; 48 &amp;&amp; event.which != 08 )|| event.which &gt; 57) return false;"/>
 					<h:commandButton id="add"
 						action="#{shoppingCartController.addToCart(_product.id, shoppingCartController.quantity)}"
-						value="Add to cart" />
+						value="Add to cart"/>
 				</h:form>
 			</h:column>
 			<f:facet name="footer">

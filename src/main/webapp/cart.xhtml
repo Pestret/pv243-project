@@ -33,7 +33,7 @@
 				<h:column>
 					<f:facet name="header">Quantity</f:facet>
 					<h:panelGrid>
-						<h:inputText id="intxt" value="#{_item.quantity}" />
+						<h:inputText id="intxt" value="#{_item.quantity}" onkeypress="if((event.which &lt; 48 &amp;&amp; event.which != 08 )|| event.which &gt; 57) return false;"/>
 						<f:ajax event="keyup" execute="intxt" render="outtxt" />
 						<f:ajax event="keyup" execute="intxt" render="totalPriceLabel" />
 					</h:panelGrid>
