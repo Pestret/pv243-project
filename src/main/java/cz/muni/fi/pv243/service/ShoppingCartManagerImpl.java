@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateful;
 import javax.enterprise.event.Event;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -48,7 +49,7 @@ public class ShoppingCartManagerImpl implements ShoppingCartManager {
 		if (cart == null || cart.getId() == null) {
 			throw new IllegalArgumentException("je to zosrate");
 		}
-		em.remove(cart);
+		em.remove(get(cart.getId()));
 		cartEventSrc.fire(cart);
 	}
 

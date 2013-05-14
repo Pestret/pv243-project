@@ -7,15 +7,16 @@ import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
+import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.jboss.seam.security.Identity;
 
 import cz.muni.fi.pv243.model.OrderItem;
 import cz.muni.fi.pv243.model.ShoppingCart;
 import cz.muni.fi.pv243.service.OrderItemManager;
-import cz.muni.fi.pv243.service.ProductManager;
 import cz.muni.fi.pv243.service.ShoppingCartManager;
 
 @SessionScoped
@@ -46,6 +47,10 @@ public class UserProfileController implements Serializable {
 			num = num.add(item.getProduct().getPrice().multiply(new BigDecimal(item.getQuantity())));
 		}
 		return num;
+	}
+	 
+	public void deleteOrder(Long id){
+		cartManager.delete((cartManager.get(id)));
 	}
 	
 	public List<OrderItem> getAllItems(){

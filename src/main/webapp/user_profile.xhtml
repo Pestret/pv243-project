@@ -10,6 +10,11 @@
 	<ui:define name="content">
 		<h1>User page</h1>
 
+		<div>
+			<p>Your orders.</p>
+		</div>
+		<h2>Completed orders</h2>
+
 		<h:panelGroup rendered="#{empty userFinished}">
 			<em>No finished orders.</em>
 		</h:panelGroup>
@@ -21,20 +26,23 @@
 					<f:facet name="header">Id</f:facet>
                 #{_item.id}
             </h:column>
-
 				<h:column id="col">
 					<f:facet name="header">Price</f:facet>
 					<h:outputLabel id="outtxt"
 						value="#{userProfileController.priceOfOrder(_item.id)}" />
 				</h:column>
 				<h:column>
-					<f:facet name="header"></f:facet>
-					<h:commandButton id="detailF" action="#{identity.logout()}"
-						value="Detail" />
+					<f:facet name="header">Detail</f:facet>
+					<h:form>
+						<h:commandButton id="detailF"
+							action="#{userProfileController.detailRedirect(_item2.id)}"
+							value="Detail" />
+					</h:form>
 				</h:column>
 			</h:dataTable>
 		</h:form>
 
+		<h2>Uncompleted orders</h2>
 		<h:panelGroup rendered="#{empty userUnfinished}">
 			<em>No unfinished orders.</em>
 		</h:panelGroup>
@@ -53,11 +61,6 @@
 						value="#{userProfileController.priceOfOrder(_item2.id)}" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">Order</f:facet>
-					<h:commandButton id="order" action="#{identity.logout()}"
-						value="Order" />
-				</h:column>
-				<h:column>
 					<f:facet name="header">Detail</f:facet>
 					<h:form>
 						<h:commandButton id="detail"
@@ -67,8 +70,11 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">Remove</f:facet>
-					<h:commandButton id="remove" action="#{identity.logout()}"
-						value="Remove" />
+					<h:form>
+						<h:commandButton id="remove"
+							action="#{userProfileController.deleteOrder(_item2.id)}"
+							value="Remove" />
+					</h:form>
 				</h:column>
 			</h:dataTable>
 		</h:form>
