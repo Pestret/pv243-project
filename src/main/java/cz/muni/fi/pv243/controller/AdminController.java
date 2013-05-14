@@ -1,11 +1,12 @@
 package cz.muni.fi.pv243.controller;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -18,9 +19,12 @@ import cz.muni.fi.pv243.service.ProductManager;
 import cz.muni.fi.pv243.service.ShoppingCartManager;
 import cz.muni.fi.pv243.service.UserManager;
 
+@SessionScoped
 @Model
-public class AdminController {
-	
+public class AdminController implements Serializable{
+
+	private static final long serialVersionUID = 1464525L;
+
 	@Inject
 	 private FacesContext facesContext;
 	
@@ -36,7 +40,7 @@ public class AdminController {
 	@Inject
 	private ProductManager productManager;
 	
-	private Long cardId;
+	private Long cId;
 	
 	private BigDecimal totalPrice = new BigDecimal(0);
 	
@@ -54,14 +58,17 @@ public class AdminController {
 	}
 	
 	public List<OrderItem> getAllItems(){
-		ShoppingCart cart = cartManager.get(getCardId());
+		if(getCId() == null){
+			return new ArrayList<OrderItem>();
+		}
+		ShoppingCart cart = cartManager.get(getCId());
 		return cart.getItems();
 	}
 	
-	public void detailRedirect(Long cartId) {
-		setCardId(cartId);
+	public void detailRedirect(Long id) {
+		setCId(id);
 		try {
-			FacesContext.getCurrentInstance().getExternalContext().redirect("detail.jsf");
+			FacesContext.getCurrentInstance().getExternalContext().redirect("detail_admin.jsf");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -74,11 +81,19 @@ public class AdminController {
 		cartManager.update(cart);
 	}
 
-	public Long getCardId() {
-		return cardId;
+	public Long getCId() {
+		return cId;
 	}
 
-	public void setCardId(Long cardId) {
-		this.cardId = cardId;
+	public void setCId(Long id) {
+		this.cId = id;
 	}  
+	
+	public List<User> getAllUsers(){
+		return userManager.findAll();
+	}
+	
+	public void deleteUser(Long id){
+		userManager.delete(userManager.get(id));
+	}
 }

@@ -10,7 +10,7 @@
 		<div>
 			<p>From here admin can see all shopping carts etc.</p>
 		</div>
-		<h2>Shopping carts</h2>
+		<h2>Shopping carts to confirm</h2>
 		<h:panelGroup rendered="#{empty unfinishedCarts}">
 			<em>No shopping carts.</em>
 		</h:panelGroup>
@@ -53,6 +53,35 @@
                 <h:form>
                 <h:commandButton id="remove"
 							action="#{adminController.deleteOrder(_carts.id)}"
+							value="Remove" />
+                </h:form>
+            </h:column>
+			<f:facet name="footer">
+			</f:facet>
+		</h:dataTable>
+		<h2>Users in system</h2>
+		<h:panelGroup rendered="#{empty adminController.getAllUsers()}">
+			<em>Nobody.</em>
+		</h:panelGroup>
+		<h:dataTable var="_user" value="#{adminController.getAllUsers()}"
+			rendered="#{not empty adminController.getAllUsers()}" styleClass="simpletablestyle">
+			<h:column>
+				<f:facet name="header">User name</f:facet>
+                #{_user.name}
+            </h:column>
+            <h:column>
+				<f:facet name="header">User email</f:facet>
+                #{_user.email}
+            </h:column>
+			<h:column>
+				<f:facet name="header">Role</f:facet>
+                #{_user.role}
+            </h:column>
+            <h:column>
+				<f:facet name="header">Remove</f:facet>
+                <h:form>
+                <h:commandButton id="removeee"
+							action="#{adminController.deleteUser(_user.identificator)}"
 							value="Remove" />
                 </h:form>
             </h:column>

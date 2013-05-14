@@ -3,6 +3,7 @@ package cz.muni.fi.pv243.controller;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
@@ -54,6 +55,9 @@ public class UserProfileController implements Serializable {
 	}
 	
 	public List<OrderItem> getAllItems(){
+		if(getCardId() == null){
+			return new ArrayList<OrderItem>();
+		}
 		ShoppingCart cart = cartManager.get(getCardId());
 		return cart.getItems();
 	}
