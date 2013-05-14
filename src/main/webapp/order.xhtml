@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+
+	<ui:define name="content">
+		<h1>Order confirmation</h1>
+
+		<h2>Enter your order details</h2>
+		<h:form id="personal">
+			<h:panelGrid columns="2" columnClasses="titleCell">
+				<h:outputLabel for="name" value="Name:" />
+				<h:inputText id="name" value="#{newUser.name}" />
+
+				<h:outputLabel for="email" value="Email:" />
+				<h:inputText id="email" value="#{newUser.email}" />
+				
+				<h:outputLabel for="address" value="Address:" />
+				<h:inputText id="address" value="#{newUser.address}" />
+				
+				<h:outputLabel for="phone" value="Phone:" />
+				<h:inputText id="phone" value="#{newUser.address}" />
+				
+				</h:panelGrid>
+		</h:form>
+
+		<h2>Items</h2>
+	
+		<h:form id="form">
+			<h:dataTable var="_item" value="#{shoppingCartController.all}"
+				rendered="#{not empty shoppingCartController.all}"
+				styleClass="simpletablestyle">
+				<h:column>
+					<f:facet name="header">Id</f:facet>
+                #{_item.id}
+            </h:column>
+				<h:column>
+					<f:facet name="header">Product</f:facet>
+                #{_item.product.name}
+            </h:column>
+				<h:column>
+					<f:facet name="header">Quantity</f:facet>
+					<h:panelGrid>
+						<h:inputText id="intxt" value="#{_item.quantity}" readonly="true" />
+						<f:ajax event="keyup" execute="intxt" render="outtxt" />
+						<f:ajax event="keyup" execute="intxt" render="totalPriceLabel" />
+					</h:panelGrid>
+				</h:column>
+				<h:column id="col">
+					<f:facet name="header">Price</f:facet>
+					<h:outputLabel id="outtxt"
+						value="#{_item.product.price * _item.quantity}" />
+				</h:column>
+				<f:facet name="footer">
+					<h:outputLabel id="totalPriceLabel"
+						value="Total price: #{shoppingCartController.totalPrice}" />
+				</f:facet>
+			</h:dataTable>
+		</h:form>
+
+		<script type="text/javascript">
+			function redirect(){
+				window.location='index.jsf';
+				return false;
+			}
+		</script>
+
+		<p>
+			<h:form>
+				<h:panelGrid columns="2">
+					<h:commandButton id="order"
+						 value="Confirm" action="#{shoppingCartController.confirm()}"
+						styleClass="register"/>
+					<h:commandButton id="clear" onclick="return redirect();"
+						 value="Cancel"
+						styleClass="register" />
+				</h:panelGrid>
+			</h:form>
+
+		</p>
+	</ui:define>
+</ui:composition>
