@@ -3,6 +3,7 @@ package cz.muni.fi.pv243.controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Model;
@@ -35,6 +36,8 @@ public class AdminController {
 	@Inject
 	private ProductManager productManager;
 	
+	private Long cardId;
+	
 	private BigDecimal totalPrice = new BigDecimal(0);
 	
 	public BigDecimal getTotalPrice(Long shoppCartId){
@@ -45,4 +48,31 @@ public class AdminController {
 		 }
 		 return totalPrice;
 	 }
+	
+	public void deleteOrder(Long id){
+		cartManager.delete((cartManager.get(id)));
+	}
+	
+	public List<OrderItem> getAllItems(){
+		ShoppingCart cart = cartManager.get(getCardId());
+		return cart.getItems();
+	}
+	
+	public void detailRedirect(Long cartId) {
+		setCardId(cartId);
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("detail.jsf");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public Long getCardId() {
+		return cardId;
+	}
+
+	public void setCardId(Long cardId) {
+		this.cardId = cardId;
+	}  
 }

@@ -11,11 +11,11 @@
 			<p>From here admin can see all shopping carts etc.</p>
 		</div>
 		<h2>Shopping carts</h2>
-		<h:panelGroup rendered="#{empty allCarts}">
+		<h:panelGroup rendered="#{empty unfinishedCarts}">
 			<em>No shopping carts.</em>
 		</h:panelGroup>
-		<h:dataTable var="_carts" value="#{allCarts}"
-			rendered="#{not empty allCarts}" styleClass="simpletablestyle">
+		<h:dataTable var="_carts" value="#{unfinishedCarts}"
+			rendered="#{not empty unfinishedCarts}" styleClass="simpletablestyle">
 			<h:column>
 				<f:facet name="header">User name</f:facet>
                 #{_carts.user.name}
@@ -33,13 +33,28 @@
                 #{adminController.getTotalPrice(_carts.id)}
             </h:column>
             <h:column>
+				<f:facet name="header">Confirm</f:facet>
+                <h:form>
+                <h:commandButton id="confirm"
+							action="#{adminController.detailRedirect(_carts.id)}"
+							value="Confirm" />
+                </h:form>    
+            </h:column>
+            <h:column>
 				<f:facet name="header">Details</f:facet>
-                <h:form style="">
-                <h:commandButton id="getOutOfHere"
-						action="#{identity.logout()}"
-						value="Order details" />
+                <h:form>
+                <h:commandButton id="detail"
+							action="#{adminController.detailRedirect(_carts.id)}"
+							value="Detail" />
+                </h:form>  
+            </h:column>
+            <h:column>
+				<f:facet name="header">Remove</f:facet>
+                <h:form>
+                <h:commandButton id="remove"
+							action="#{adminController.detailRedirect(_carts.id)}"
+							value="Remove" />
                 </h:form>
-                
             </h:column>
 			<f:facet name="footer">
 			</f:facet>
