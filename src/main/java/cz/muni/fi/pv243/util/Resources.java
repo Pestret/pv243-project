@@ -16,6 +16,7 @@
  */
 package cz.muni.fi.pv243.util;
 
+import java.io.Serializable;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.RequestScoped;
@@ -37,9 +38,12 @@ import javax.persistence.PersistenceContext;
  * private EntityManager em;
  * </pre>
  */
-public class Resources {
-    // use @SuppressWarnings to tell IDE to ignore warnings about field not being referenced directly
-    @SuppressWarnings("unused")
+public class Resources implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5480882871610429155L;
+	// use @SuppressWarnings to tell IDE to ignore warnings about field not being referenced directly
     @Produces
     @PersistenceContext
     private EntityManager em;
