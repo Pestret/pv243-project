@@ -107,6 +107,8 @@ public class ShoppingCartController implements Serializable {
 	 }
 	 
 	 public void clearCart(){
+		 cart = new ShoppingCart();
+		 cart.setFinished(false);
 		 cart.setItems(new ArrayList<OrderItem>());
 	 }
 
@@ -115,5 +117,6 @@ public class ShoppingCartController implements Serializable {
 		 //check if user is logged in, otherwise next line will be nullpointer
 		 cart.setUser(userManager.findByEmail(identity.getUser().getId()));
 		 cartManager.create(cart);
+		 clearCart();
 	 }
 }
