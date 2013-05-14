@@ -19,7 +19,6 @@
 			<em>No finished orders.</em>
 		</h:panelGroup>
 
-		<h:form id="form2">
 			<h:dataTable var="_item" value="#{userFinished}"
 				rendered="#{not empty userFinished}" styleClass="simpletablestyle">
 				<h:column>
@@ -40,14 +39,12 @@
 					</h:form>
 				</h:column>
 			</h:dataTable>
-		</h:form>
 
 		<h2>Uncompleted orders</h2>
 		<h:panelGroup rendered="#{empty userUnfinished}">
 			<em>No unfinished orders.</em>
 		</h:panelGroup>
 
-		<h:form id="form">
 			<h:dataTable var="_item2" value="#{userUnfinished}"
 				rendered="#{not empty userUnfinished}" styleClass="simpletablestyle">
 				<h:column>
@@ -77,6 +74,5 @@
 					</h:form>
 				</h:column>
 			</h:dataTable>
-		</h:form>
 	</ui:define>
 </ui:composition>
