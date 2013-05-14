@@ -23,10 +23,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.jboss.seam.security.BaseAuthenticator;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
+import org.jboss.seam.security.session.Session;
 import org.picketlink.idm.impl.api.PasswordCredential;
 
 import cz.muni.fi.pv243.model.User;
@@ -46,8 +49,8 @@ public class UserController extends BaseAuthenticator{
     @Inject
     private Credentials credentials;
     
-//    @Inject
-//    private Identity identity;
+    @Inject
+    private Identity identity;
     
     private User newUser;
 

@@ -31,13 +31,11 @@
 			<from-action>#{identity.login}</from-action>
 			<if>#{userController.isAdmin(identity)}</if>
 			<to-view-id>/admin_page.xhtml</to-view-id>
-			<redirect/>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{identity.login}</from-action>
 			<if>#{userController.isCustomer(identity)}</if>
 			<to-view-id>/user_profile.xhtml</to-view-id>
-			<redirect/>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
