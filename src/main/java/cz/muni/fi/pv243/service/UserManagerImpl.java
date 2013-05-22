@@ -24,7 +24,7 @@ public class UserManagerImpl implements UserManager {
 	@Override
 	public void create(User user) {
 		if (user == null || user.getIdentificator() != null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid user to create operation.");
 		}
 		try {
 			user.setPasswordHash(Encoder.encode(user.getPasswordHash(),
@@ -40,7 +40,7 @@ public class UserManagerImpl implements UserManager {
 	@Override
 	public void update(User user) {
 		if (user == null || user.getIdentificator() == null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid user to update operation.");
 		}
 		try {
 			user.setPasswordHash(Encoder.encode(user.getPasswordHash(),
@@ -56,7 +56,7 @@ public class UserManagerImpl implements UserManager {
 	@Override
 	public void delete(User user) {
 		if (user == null || user.getIdentificator() == null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid user to delete operation.");
 		}
 		em.remove(user);
 	}
@@ -80,7 +80,7 @@ public class UserManagerImpl implements UserManager {
 	@Override
 	public List<User> findByName(String name) {
 		if (name == null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid name of user.");
 		}
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -96,7 +96,7 @@ public class UserManagerImpl implements UserManager {
 	@Override
 	public User findByEmail(String email) {
 		if (email == null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid email of user.");
 		}
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -113,7 +113,7 @@ public class UserManagerImpl implements UserManager {
 	@Override
 	public User get(Long id) {
 		if (id == null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid id of user.");
 		}
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
