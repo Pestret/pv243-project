@@ -15,8 +15,6 @@ public interface UserManager {
 	User get(Long id);
 	
 	List<User> findAll();
-	
-	List<User> findByName(String name);
-	
+		
 	User findByEmail(String email);	
 }

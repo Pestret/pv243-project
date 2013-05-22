@@ -58,7 +58,8 @@ public class UserManagerImpl implements UserManager {
 		if (user == null || user.getIdentificator() == null) {
 			throw new IllegalArgumentException("Invalid user to delete operation.");
 		}
-		em.remove(user);
+		User det = em.merge(user);
+		em.remove(det);
 	}
 
 	@Override
@@ -75,22 +76,6 @@ public class UserManagerImpl implements UserManager {
 			return null;
 		}
 
-	}
-
-	@Override
-	public List<User> findByName(String name) {
-		if (name == null) {
-			throw new IllegalArgumentException("Invalid name of user.");
-		}
-		try {
-			CriteriaBuilder cb = em.getCriteriaBuilder();
-			CriteriaQuery<User> criteria = cb.createQuery(User.class);
-			Root<User> us = criteria.from(User.class);
-			criteria.select(us).where(cb.equal(us.get("name"), name));
-			return em.createQuery(criteria).getResultList();
-		} catch (Exception e) {
-			return null;
-		}
 	}
 
 	@Override

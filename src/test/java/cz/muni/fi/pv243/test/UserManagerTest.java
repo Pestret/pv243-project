@@ -1,8 +1,10 @@
 package cz.muni.fi.pv243.test;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.ejb.EJBException;
@@ -47,24 +49,10 @@ public class UserManagerTest {
 	}
 
 	@Inject
-	Logger log;
-
-	@Inject
 	UserManager userManager;
 
 	@Test
-	public void findByEmailTest() {
-		User user = new User();
-		user.setName("Pepa Depa");
-		user.setEmail("nebuduTo6@milujipraci.cz");
-		user.setAddress("doma");
-		user.setPasswordHash("totalniH4sH");
-		userManager.create(user);
-		userManager.findByEmail("nebuduTo@milujipraci.cz");
-	}
-
-	@Test
-	public void createUser() {
+	public void createUserTest() {
 		User user = new User();
 		user.setName("Pepa Depa");
 		user.setEmail("nebuduTo2@milujipraci.cz");
@@ -72,27 +60,39 @@ public class UserManagerTest {
 		user.setPasswordHash("totalniH4sH");
 		userManager.create(user);
 
+		assertNotNull(user.getIdentificator());
+
+		try {
+			userManager.create(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
 		User user2 = new User();
 		user2.setName("Pepa Depa");
 		user2.setEmail("nebuduTo2@milujipraci.cz");
 		user2.setAddress("doma");
 		user2.setPasswordHash("totalniH4sH");
 		user2.setId(9l);
+
 		try {
 			userManager.create(user2);
 			fail();
 		} catch (EJBException e) {
 
 		}
+
 		try {
 			userManager.create(null);
+			fail();
 		} catch (EJBException e) {
 
 		}
 	}
 
 	@Test
-	public void createUserName() {
+	public void createUserNameTest() {
 		User user = new User();
 		user.setName("");
 		user.setEmail("nebuduTo3@milujipraci.cz");
@@ -129,7 +129,7 @@ public class UserManagerTest {
 	}
 
 	@Test
-	public void createUserEmail() {
+	public void createUserEmailTest() {
 		User user = new User();
 		user.setName("Pavel Burke");
 		user.setEmail("");
@@ -184,12 +184,347 @@ public class UserManagerTest {
 	}
 
 	@Test
-	public void wrongQueries() {
-		assertNull(userManager.findByEmail("tenTuNeni!"));
+	public void createUserAddressTest() {
+		User user = new User();
+		user.setName("Pavel Burkee");
+		user.setEmail("dovodo@ess.cz");
+		user.setAddress("");
+		user.setPasswordHash("totalniH4sH");
+
+		try {
+			userManager.create(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setAddress(null);
+
+		try {
+			userManager.create(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setAddress("vedle tebe");
+		userManager.create(user);
 	}
 
 	@Test
-	public void testUsers() {
-		log.info(userManager.findAll().toString());
+	public void createUserPassTest() {
+		User user = new User();
+		user.setName("Pajo Boorkee");
+		user.setEmail("dovo@ess.cz");
+		user.setAddress("Strasse 8");
+		user.setPasswordHash(null);
+
+		try {
+			userManager.create(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setPasswordHash("kruty");
+		userManager.create(user);
+	}
+
+	@Test
+	public void updateUserTest() {
+		User user = new User();
+		user.setName("Pepa Repa");
+		user.setEmail("ac2@milujipraci.cz");
+		user.setAddress("doma");
+		user.setPasswordHash("totalniH4sH");
+		userManager.create(user);
+
+		user.setAddress("home");
+		userManager.update(user);
+
+		user.setEmail("necaka@e.com");
+		userManager.update(user);
+
+		user.setName("Josef Kopecky");
+		userManager.update(user);
+
+		user.setPasswordHash("unhashedPass");
+		userManager.update(user);
+
+		try {
+			userManager.update(null);
+			fail();
+		} catch (EJBException e) {
+
+		}
+	}
+
+	@Test
+	public void updateUserNullOrEmptyTest() {
+		User user = new User();
+		user.setName("Pepa Repa");
+		user.setEmail("ac2@milujipraci.cz");
+		user.setAddress("doma");
+		user.setPasswordHash("totalniH4sH");
+		userManager.create(user);
+
+		user.setId(null);
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setCart(null);
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setRole(null);
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setAddress(null);
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setEmail(null);
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setName(null);
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setPasswordHash(null);
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setAddress("");
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setEmail("");
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setName("");
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+	}
+
+	@Test
+	public void updateWrongUserTest() {
+		User user = new User();
+		user.setName("Pepa Repa");
+		user.setEmail("acee2@milujipraci.cz");
+		user.setAddress("doma");
+		user.setPasswordHash("totalniH4sH");
+		userManager.create(user);
+
+		User user2 = new User();
+		user2.setName("Pepa Repa");
+		user2.setEmail("aaac2@milujipraci.cz");
+		user2.setAddress("dsssoma");
+		user2.setPasswordHash("tsssotalniH4sH");
+		userManager.create(user2);
+
+		user.setId(user2.getIdentificator());
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setId(99999l);
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setEmail("email");
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		user.setName("jmeno");
+		try {
+			userManager.update(user);
+			fail();
+		} catch (EJBException e) {
+
+		}
+	}
+
+	@Test
+	public void deleteUserTest() {
+		User user = new User();
+		user.setName("Pepa Depa");
+		user.setEmail("nebuduTeeo6@milujipraci.cz");
+		user.setAddress("doma");
+		user.setPasswordHash("totalniH4sH");
+		userManager.create(user);
+
+		Long id = user.getIdentificator();
+		assertNotNull(user.getIdentificator());
+		userManager.delete(user);
+
+		User u = userManager.get(id);
+		assertNull(u);
+
+		try {
+			userManager.delete(null);
+			fail();
+		} catch (EJBException e) {
+
+		}
+
+		try {
+			userManager.delete(new User());
+			fail();
+		} catch (EJBException e) {
+
+		}
+	}
+
+	@Test
+	public void getUserTest() {
+		User user = new User();
+		user.setName("Pepa Depa");
+		user.setEmail("Teeo6@milujipraci.cz");
+		user.setAddress("doma");
+		user.setPasswordHash("totalniH4sH");
+		userManager.create(user);
+
+		User u = userManager.get(user.getIdentificator());
+		assertNotNull(u);
+		assertEquals(u, user);
+
+		u = userManager.get(9699l);
+		assertNull(u);
+
+		try {
+			userManager.get(null);
+			fail();
+		} catch (EJBException e) {
+
+		}
+	}
+
+	@Test
+	public void findByEmailTest() {
+		User u = userManager.findByEmail("nebuduTro6@mjip.cz");
+		assertNull(u);
+		
+		User user = new User();
+		user.setName("Pepa Depa");
+		user.setEmail("nebuduTro6@milujipraci.cz");
+		user.setAddress("doma");
+		user.setPasswordHash("totalniH4sH");
+		userManager.create(user);
+
+		User user2 = new User();
+		user2.setName("Pepa Depa");
+		user2.setEmail("nebuduTro6@mjipraci.cz");
+		user2.setAddress("doma");
+		user2.setPasswordHash("totalniH4sH");
+		userManager.create(user2);
+
+		User user3 = new User();
+		user3.setName("Pepa Zruska");
+		user3.setEmail("n@m.cz");
+		user3.setAddress("doma");
+		user3.setPasswordHash("totalniH4sH");
+		userManager.create(user3);
+
+		u = userManager.findByEmail("n@m.cz");
+		assertNotNull(u);
+		assertNotNull(u.getIdentificator());
+		assertSame(u.getIdentificator(), user3.getIdentificator());
+
+		u = userManager.findByEmail("nTr6@mj.cz");
+		assertNull(u);
+
+		try {
+			userManager.findByEmail(null);
+			fail();
+		} catch (EJBException e) {
+
+		}
+	}
+
+	@Test
+	public void findAllTest() {
+		List <User> list = userManager.findAll();
+		assertNotNull(list);
+		int i = list.size();
+		
+		User user = new User();
+		user.setName("Pepa Depa");
+		user.setEmail("nebuduTro6@misipraci.cz");
+		user.setAddress("doma");
+		user.setPasswordHash("totalniH4sH");
+		userManager.create(user);
+
+		User user2 = new User();
+		user2.setName("Pepa Depa");
+		user2.setEmail("nebuduTro6@mjiprsaci.cz");
+		user2.setAddress("doma");
+		user2.setPasswordHash("totalniH4sH");
+		userManager.create(user2);
+
+		User user3 = new User();
+		user3.setName("Pepa Zruska");
+		user3.setEmail("nebo6@mjip.cz");
+		user3.setAddress("doma");
+		user3.setPasswordHash("totalniH4sH");
+		userManager.create(user3);
+
+		list = userManager.findAll();
+		assertNotNull(list);
+		assertTrue(list.size() == i+3);
+
 	}
 }
