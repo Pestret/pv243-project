@@ -82,7 +82,8 @@
                 <h:form>
                 <h:commandButton id="removeee"
 							action="#{adminController.deleteUser(_user.identificator)}"
-							value="Remove" />
+							value="Remove"
+							rendered="#{!_user.role.equals('admin')}" />
                 </h:form>
             </h:column>
 			<f:facet name="footer">
