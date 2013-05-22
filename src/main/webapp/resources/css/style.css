@@ -1,0 +1,35 @@
+.inner_copy {border:0;color:#f00;float:left;width:50% !important;margin:-100% 0 0 0;overflow:hidden;line-height:0;padding:0;font-size:11px}
+.fleft {float:left}
+.fright  {float:right}
+.fcenter {float:none;margin:0 auto;text-align:center}
+.fclear {clear:both}
+body {font:normal small Arial, Helvetica, sans-serif;color:#fff;text-align:justify;font-size:13px;margin:0;background:#1E1E1E}
+#logo-bg {height:114px;background-image:url(images/logo-bg.gif);background-repeat:repeat-x}
+#header-bg {width:560px;border:1px solid #767A7D;background-image:url(images/header-bg.jpg);background-repeat:repeat-y;height:221px}
+#jewellery {background-image:url(images/jewellery.jpg);background-repeat:no-repeat;width:228px;height:221px}
+.name {font-size:23px;text-transform:uppercase;color:#363638;font-weight:bold;font-style:italic;text-align:center}
+.tag {font-size:18px;padding-left:20px;color:#1E201F}
+.tag2 {color:#fff}
+.toplinks {background-image:url(images/links-bg.gif);background-repeat:repeat-x;font-weight:bold;line-height:73px;text-transform:uppercase;width:112px;text-align:center;background:#46463A}
+.toplinks a {text-decoration:none;color:#DADBD6}
+.toplinks a:hover {text-decoration:none;color:#E3B625}
+.sap {width:2px;background-image:url(images/sap.gif);background-repeat:repeat-y}
+.heading {color:#F8AA02;padding-left:10px;background:#4B4B43;height:38px;line-height:38px;font-size:18px}
+.heading2 {color:#fff}
+#main {padding:10px;background:#646158;font-family:tahoma;font-size:11px}
+.section {width:280px;height:113px;background-image:url(images/logo-bg.gif);background-repeat:repeat-x}
+a {color:#74A500;text-decoration:underline}
+a:hover {color:#74A500;text-decoration:none}
+.cat-links {line-height:31px;text-align:left;font-size:12px;border-bottom:2px solid #A7A590;font-weight:bold;text-transform:uppercase}
+.cat-links a {text-decoration:none;display:block;color:#A9A697;padding-left:20px}
+.cat-links a:hover {text-decoration:none;color:#fff;background:#E3A328}
+.bottomlinks {width:100px;text-align:center;font-size:11px}
+.bottomlinks a {font-weight:normal;text-decoration:none;color:#A8A890}
+.bottomlinks a:hover {color:#DA912B;text-decoration:none}
+.sap2 {color:#A8A890;width:1px}
+#footer {padding:11px}
+.p-head-1 {font-size:18px;text-transform:uppercase;color:#fff;padding-left:15px}
+.p-head-2 {color:#3F3B32}
+.read-more {font-weight:bold;font-size:11px;height:25px;line-height:25px;padding-right:15px;background:#646158;text-align:right}
+.read-more a {color:#A7A493;text-decoration:none}
+.read-more a:hover {color:#A7A493;text-decoration:underline}
