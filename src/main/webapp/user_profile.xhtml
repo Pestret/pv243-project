@@ -7,6 +7,16 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="/WEB-INF/templates/default.xhtml">
 
+	<ui:define name="nav">
+			<ul class="nav">
+				<li class="active"><a href="index.jsf">Home</a></li>
+				<li><a href="cart.jsf">Cart</a></li>
+				<li><h:link outcome="register" rendered="#{!identity.loggedIn}">Registration</h:link></li>
+				<li><h:commandLink action="#{identity.logout}"
+						rendered="#{identity.loggedIn}">Logout</h:commandLink></li>
+			</ul>
+	</ui:define>
+
 	<ui:define name="content">
 		<h1>User page</h1>
 
@@ -19,60 +29,60 @@
 			<em>No finished orders.</em>
 		</h:panelGroup>
 
-			<h:dataTable var="_item" value="#{userFinished}"
-				rendered="#{not empty userFinished}" styleClass="simpletablestyle">
-				<h:column>
-					<f:facet name="header">Id</f:facet>
+		<h:dataTable var="_item" value="#{userFinished}"
+			rendered="#{not empty userFinished}" styleClass="simpletablestyle">
+			<h:column>
+				<f:facet name="header">Id</f:facet>
                 #{_item.id}
             </h:column>
-				<h:column id="col">
-					<f:facet name="header">Price</f:facet>
-					<h:outputLabel id="outtxt"
-						value="#{userProfileController.priceOfOrder(_item.id)}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">Detail</f:facet>
-					<h:form>
-						<h:commandButton id="detailF"
-							action="#{userProfileController.detailRedirect(_item2.id)}"
-							value="Detail" />
-					</h:form>
-				</h:column>
-			</h:dataTable>
+			<h:column id="col">
+				<f:facet name="header">Price</f:facet>
+				<h:outputLabel id="outtxt"
+					value="#{userProfileController.priceOfOrder(_item.id)}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Detail</f:facet>
+				<h:form>
+					<h:commandButton id="detailF"
+						action="#{userProfileController.detailRedirect(_item2.id)}"
+						value="Detail" />
+				</h:form>
+			</h:column>
+		</h:dataTable>
 
 		<h2>Uncompleted orders</h2>
 		<h:panelGroup rendered="#{empty userUnfinished}">
 			<em>No unfinished orders.</em>
 		</h:panelGroup>
 
-			<h:dataTable var="_item2" value="#{userUnfinished}"
-				rendered="#{not empty userUnfinished}" styleClass="simpletablestyle">
-				<h:column>
-					<f:facet name="header">Id</f:facet>
+		<h:dataTable var="_item2" value="#{userUnfinished}"
+			rendered="#{not empty userUnfinished}" styleClass="simpletablestyle">
+			<h:column>
+				<f:facet name="header">Id</f:facet>
                 #{_item2.id}
             </h:column>
 
-				<h:column id="colu">
-					<f:facet name="header">Price</f:facet>
-					<h:outputLabel id="outtxt"
-						value="#{userProfileController.priceOfOrder(_item2.id)}" />
-				</h:column>
-				<h:column>
-					<f:facet name="header">Detail</f:facet>
-					<h:form>
-						<h:commandButton id="detail"
-							action="#{userProfileController.detailRedirect(_item2.id)}"
-							value="Detail" />
-					</h:form>
-				</h:column>
-				<h:column>
-					<f:facet name="header">Remove</f:facet>
-					<h:form>
-						<h:commandButton id="remove"
-							action="#{userProfileController.deleteOrder(_item2.id)}"
-							value="Remove" />
-					</h:form>
-				</h:column>
-			</h:dataTable>
+			<h:column id="colu">
+				<f:facet name="header">Price</f:facet>
+				<h:outputLabel id="outtxt"
+					value="#{userProfileController.priceOfOrder(_item2.id)}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">Detail</f:facet>
+				<h:form>
+					<h:commandButton id="detail"
+						action="#{userProfileController.detailRedirect(_item2.id)}"
+						value="Detail" />
+				</h:form>
+			</h:column>
+			<h:column>
+				<f:facet name="header">Remove</f:facet>
+				<h:form>
+					<h:commandButton id="remove"
+						action="#{userProfileController.deleteOrder(_item2.id)}"
+						value="Remove" />
+				</h:form>
+			</h:column>
+		</h:dataTable>
 	</ui:define>
 </ui:composition>

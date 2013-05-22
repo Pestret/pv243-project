@@ -22,16 +22,28 @@
 <h:head>
 	<title>Explosives Shop</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script
+		src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<h:outputStylesheet name="css/screen.css" />
+	<h:outputStylesheet name="css/bootstrap.css" />
 </h:head>
 <h:body>
+<h:form>
+	<div class="navbar navbar-inverse">
+		<div class="navbar-inner">
+			<div class="container" style="width: auto; padding-left: 20%;">
+				<a class="brand" href="index.jsf">ESHOP</a>
+				
+					<ui:insert name="nav">
+                    [Template content will be inserted here]
+         </ui:insert>
+				
+			</div>
+		</div>
+	</div>
+	</h:form>
 	<div id="container">
 		<div class="dualbrand">
-			<h:form id="logoutForm">
-				<h:commandButton id="logout" value="Logout"
-					action="#{identity.logout}" rendered="#{identity.loggedIn}" />
-			</h:form>
 			<img src="resources/gfx/Dynamite.png" />
 		</div>
 		<div id="content">
@@ -39,14 +51,12 @@
                     [Template content will be inserted here]
          </ui:insert>
 		</div>
-		<div id="left" class="subContainer">
-		Texticek
-	</div>
 		<div id="footer">
 			<p>
 				This project is cool.<br />
 			</p>
 		</div>
 	</div>
+
 </h:body>
 </html>
