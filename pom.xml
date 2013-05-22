@@ -141,11 +141,16 @@
 			<version>1.6</version>
 		</dependency>
 
-<dependency>
-        <groupId>jboss</groupId>
-        <artifactId>jbossha</artifactId>
-        <version>3.2.3</version>
-      </dependency>
+		<dependency>
+			<groupId>org.jboss.shrinkwrap.resolver</groupId>
+			<artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>jboss</groupId>
+			<artifactId>jbossha</artifactId>
+			<version>3.2.3</version>
+		</dependency>
 
 		<!-- JSR-303 (Bean Validation) Implementation -->
 		<!-- Provides portable constraints such as @Email -->
