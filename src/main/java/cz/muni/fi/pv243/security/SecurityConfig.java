@@ -41,5 +41,13 @@ public interface SecurityConfig {
 		@RestrictAtPhase({ PhaseIdType.RESTORE_VIEW,
 				PhaseIdType.INVOKE_APPLICATION })
 		TEST,
+		
+		@ViewPattern("/order.xhtml")
+		@LoginView("/login.xhtml")
+		@AccessDeniedView("/login.xhtml")
+		@LoggedIn
+		@RestrictAtPhase({ PhaseIdType.RESTORE_VIEW,
+				PhaseIdType.INVOKE_APPLICATION })
+		ORDER,
 	}
 }

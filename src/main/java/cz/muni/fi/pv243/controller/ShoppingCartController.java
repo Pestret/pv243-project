@@ -118,14 +118,25 @@ public class ShoppingCartController implements Serializable {
 	public void order() {
 		// TODO
 		// check if user is logged in, otherwise next line will be nullpointer
-		cart.setUser(userManager.findByEmail(identity.getUser().getId()));
+		if (identity.getUser() == null) {
+			try {
+				FacesContext.getCurrentInstance().getExternalContext()
+						.redirect("order.jsf");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} else {
+			cart.setUser(userManager.findByEmail(identity.getUser().getId()));
 
-		try {
-			FacesContext.getCurrentInstance().getExternalContext()
-					.redirect("order.jsf");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				FacesContext.getCurrentInstance().getExternalContext()
+						.redirect("order.jsf");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

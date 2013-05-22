@@ -69,9 +69,6 @@ public class UserShoppingCartCache {
     	List<ShoppingCart> allOrders = em.createQuery(
     	criteria.where(cb.equal(userExpression, user)))
     	.getResultList();
-    	System.out.println("--------------------------------------------------");
-    	System.out.println(user);
-    	System.out.println("--------------------------------------------");
     	for (ShoppingCart cart : allOrders) {
     		if (cart.isFinished()) {
     		finishedOrders.add(cart);
