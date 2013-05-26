@@ -396,6 +396,13 @@ public class UserManagerTest {
 		} catch (EJBException e) {
 
 		}
+		
+		try {
+			userManager.update(new User());
+			fail();
+		} catch (EJBException e) {
+
+		}
 	}
 
 	@Test

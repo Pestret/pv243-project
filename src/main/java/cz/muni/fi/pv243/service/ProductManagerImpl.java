@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import cz.muni.fi.pv243.model.Product;
+import cz.muni.fi.pv243.model.User;
 
 @Stateless
 public class ProductManagerImpl implements ProductManager {
@@ -24,7 +25,7 @@ public class ProductManagerImpl implements ProductManager {
 	@Override
 	public void create(Product product) {
 		if (product == null || product.getId() != null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid product to create operation.");
 		}
 		em.persist(product);
 		productEventSrc.fire(product);
@@ -33,7 +34,7 @@ public class ProductManagerImpl implements ProductManager {
 	@Override
 	public void update(Product product) {
 		if (product == null || product.getId() == null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid product to update operation.");
 		}
 		em.merge(product);
 		productEventSrc.fire(product);
@@ -42,16 +43,17 @@ public class ProductManagerImpl implements ProductManager {
 	@Override
 	public void delete(Product product) {
 		if (product == null || product.getId() == null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid product to delete operation.");
 		}
-		em.remove(product);
-		productEventSrc.fire(product);
+		Product det = em.merge(product);
+		em.remove(det);
+		productEventSrc.fire(det);
 	}
 
 	@Override
 	public List<Product> findByName(String name) {
 		if (name == null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid name.");
 		}
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -68,7 +70,7 @@ public class ProductManagerImpl implements ProductManager {
 	@Override
 	public Product get(Long id) {
 		if (id == null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid id of product.");
 		}
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
