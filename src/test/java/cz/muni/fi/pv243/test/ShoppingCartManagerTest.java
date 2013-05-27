@@ -1,9 +1,12 @@
 package cz.muni.fi.pv243.test;
 
+import static org.junit.Assert.*;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJBException;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -55,11 +58,11 @@ public class ShoppingCartManagerTest {
 	@Inject
 	UserManager userManager;
 	@Inject
-	ProductManager product;
+	ProductManager productManager;
 	@Inject
-	OrderItemManager order;
+	OrderItemManager orderManager;
 	@Inject
-	ShoppingCartManager shop;
+	ShoppingCartManager shopManager;
 	
 	@Test
 	public void Test() {
@@ -75,21 +78,54 @@ public class ShoppingCartManagerTest {
 		item.setDescription("bla bla");
 		item.setName("Boziii");
 		item.setPrice(new BigDecimal(99));
-		
-		product.create(item);
+		productManager.create(item);
 		
 		OrderItem ord = new OrderItem();
 		ord.setProduct(item);
 		ord.setQuantity(3);
-		
-		order.create(ord);
-		
+				
 		ShoppingCart cart = new ShoppingCart();
 		List<OrderItem> list = new ArrayList<OrderItem>();
 		list.add(ord);
 		cart.setUser(user);
 		cart.setItems(list);
 		
-		shop.create(cart);
+		shopManager.create(cart);
+		
+		try{
+			shopManager.create(cart);
+			fail();
+		} catch(EJBException e){
+			
+		}
+		
+		try{
+			shopManager.create(null);
+			fail();
+		} catch(EJBException e){
+			
+		}
+		
+		ShoppingCart cart2 = new ShoppingCart();
+		cart2.setUser(user);
+		cart2.setItems(null);
+		try{
+			shopManager.create(cart2);
+			fail();
+		} catch(EJBException e){
+			
+		}	
+		
+		ShoppingCart cart3 = new ShoppingCart();
+		List<OrderItem> list2 = new ArrayList<OrderItem>();
+		list.add(ord);
+		cart3.setItems(list2);
+		cart3.setUser(null);
+		try{
+			shopManager.create(cart3);
+			fail();
+		} catch(EJBException e){
+			
+		}
 	}
 }

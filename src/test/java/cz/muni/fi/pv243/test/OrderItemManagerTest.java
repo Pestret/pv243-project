@@ -150,23 +150,23 @@ public class OrderItemManagerTest {
 		item.setQuantity(8);
 		orderItemManager.update(item);
 
-		product.setPrice(new BigDecimal(81));
+		product.setPrice(new BigDecimal("99"));
 		productManager.update(product);
 		item.setProduct(product);
 		orderItemManager.update(item);
 		
-		assertSame(orderItemManager.get(item.getId()).getProduct().getPrice(), item.getProduct().getPrice());
+		assertSame(orderItemManager.get(item.getId()).getProduct().getPrice().longValue(), item.getProduct().getPrice().longValue());
 
-		item.setId(98l);
 		try {
-			orderItemManager.update(item);
+			orderItemManager.update(null);
 			fail();
 		} catch (EJBException e) {
 
 		}
-
+		
+		item.setId(9777777777777777l);
 		try {
-			productManager.update(null);
+			orderItemManager.update(item);
 			fail();
 		} catch (EJBException e) {
 
