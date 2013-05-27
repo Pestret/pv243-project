@@ -43,10 +43,12 @@ public class ShoppingCartManagerTest {
 				.create(WebArchive.class, "test.war")
 				.addClasses(User.class, ShoppingCart.class, OrderItem.class,
 						Product.class, UserManager.class,
-						UserManagerImpl.class,ProductManagerImpl.class, 
-						ShoppingCartManagerImpl.class, OrderItemManagerImpl.class, ProductManager.class, 
-						ShoppingCartManager.class, OrderItemManager.class, Resources.class, Encoder.class)
-						.addPackage(org.picketlink.idm.api.User.class.getPackage())
+						UserManagerImpl.class, ProductManagerImpl.class,
+						ShoppingCartManagerImpl.class,
+						OrderItemManagerImpl.class, ProductManager.class,
+						ShoppingCartManager.class, OrderItemManager.class,
+						Resources.class, Encoder.class)
+				.addPackage(org.picketlink.idm.api.User.class.getPackage())
 				.addPackage(Base64.class.getPackage())
 				.addPackage("cz.muni.fi.pv243.model.validation")
 				.addAsResource("META-INF/test-persistence.xml",
@@ -63,7 +65,7 @@ public class ShoppingCartManagerTest {
 	OrderItemManager orderManager;
 	@Inject
 	ShoppingCartManager shopManager;
-	
+
 	@Test
 	public void Test() {
 		User user = new User();
@@ -72,60 +74,65 @@ public class ShoppingCartManagerTest {
 		user.setAddress("doma");
 		user.setPasswordHash("totalniH4sH");
 		userManager.create(user);
-		
+
 		Product item = new Product();
 		item.setAvailable(1);
 		item.setDescription("bla bla");
 		item.setName("Boziii");
 		item.setPrice(new BigDecimal(99));
 		productManager.create(item);
-		
+
 		OrderItem ord = new OrderItem();
 		ord.setProduct(item);
 		ord.setQuantity(3);
-				
+
 		ShoppingCart cart = new ShoppingCart();
 		List<OrderItem> list = new ArrayList<OrderItem>();
 		list.add(ord);
 		cart.setUser(user);
 		cart.setItems(list);
-		
+
 		shopManager.create(cart);
-		
-		try{
+
+		try {
 			shopManager.create(cart);
 			fail();
-		} catch(EJBException e){
-			
+		} catch (EJBException e) {
+
 		}
-		
-		try{
-			shopManager.create(null);
-			fail();
-		} catch(EJBException e){
-			
-		}
-		
+
+	}
+
+	@Test
+	public void testWithNullItems() {
+		User user = new User();
+		user.setName("Pepa Pepa");
+		user.setEmail("nebuduTa1t@milujipraci.cz");
+		user.setAddress("doma");
+		user.setPasswordHash("totalniH4sH");
+		userManager.create(user);
+
 		ShoppingCart cart2 = new ShoppingCart();
 		cart2.setUser(user);
 		cart2.setItems(null);
-		try{
+		try {
 			shopManager.create(cart2);
 			fail();
-		} catch(EJBException e){
-			
-		}	
-		
-		ShoppingCart cart3 = new ShoppingCart();
-		List<OrderItem> list2 = new ArrayList<OrderItem>();
-		list.add(ord);
-		cart3.setItems(list2);
-		cart3.setUser(null);
-		try{
-			shopManager.create(cart3);
-			fail();
-		} catch(EJBException e){
-			
+		} catch (EJBException e) {
+
 		}
+
+	}
+	
+	@Test
+	public void testWithNull() {
+
+		try {
+			shopManager.create(null);
+			fail();
+		} catch (EJBException e) {
+
+		}
+		
 	}
 }

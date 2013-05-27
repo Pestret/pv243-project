@@ -37,7 +37,10 @@ public class OrderItemManagerTest {
 	public static Archive<?> createTestArchive() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
-				.addClasses(Product.class, ProductManager.class, ProductManagerImpl.class, OrderItem.class, OrderItemManager.class, OrderItemManagerImpl.class, Resources.class)
+				.addClasses(Product.class, ProductManager.class,
+						ProductManagerImpl.class, OrderItem.class,
+						OrderItemManager.class, OrderItemManagerImpl.class,
+						Resources.class)
 				.addAsResource("META-INF/test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
@@ -62,7 +65,7 @@ public class OrderItemManagerTest {
 		item.setProduct(product);
 		item.setQuantity(55);
 		orderItemManager.create(item);
-		
+
 		assertNotNull(item.getId());
 
 		try {
@@ -104,29 +107,29 @@ public class OrderItemManagerTest {
 		OrderItem item = new OrderItem();
 		item.setProduct(product);
 		item.setQuantity(0);
-		 
-		try{
+
+		try {
 			orderItemManager.create(item);
 			fail();
-		} catch (EJBException e){
-			
+		} catch (EJBException e) {
+
 		}
-		
+
 		item.setProduct(null);
 		item.setQuantity(2);
-		try{
+		try {
 			orderItemManager.create(item);
 			fail();
-		} catch (EJBException e){
-			
+		} catch (EJBException e) {
+
 		}
-		
+
 		item.setProduct(new Product());
-		try{
+		try {
 			orderItemManager.create(item);
 			fail();
-		} catch (EJBException e){
-			
+		} catch (EJBException e) {
+
 		}
 
 		item.setProduct(product);
@@ -154,19 +157,12 @@ public class OrderItemManagerTest {
 		productManager.update(product);
 		item.setProduct(product);
 		orderItemManager.update(item);
-		
-		assertSame(orderItemManager.get(item.getId()).getProduct().getPrice().longValue(), item.getProduct().getPrice().longValue());
+
+		assertSame(orderItemManager.get(item.getId()).getProduct().getPrice()
+				.longValue(), item.getProduct().getPrice().longValue());
 
 		try {
 			orderItemManager.update(null);
-			fail();
-		} catch (EJBException e) {
-
-		}
-		
-		item.setId(9777777777777777l);
-		try {
-			orderItemManager.update(item);
 			fail();
 		} catch (EJBException e) {
 
@@ -194,7 +190,7 @@ public class OrderItemManagerTest {
 		} catch (EJBException e) {
 
 		}
-		
+
 		item.setQuantity(0);
 		try {
 			orderItemManager.update(item);
@@ -225,7 +221,7 @@ public class OrderItemManagerTest {
 		item.setProduct(product);
 		item.setQuantity(99);
 		orderItemManager.create(item);
-		
+
 		Long id = item.getId();
 		assertNotNull(item.getId());
 		orderItemManager.delete(item);
@@ -276,13 +272,13 @@ public class OrderItemManagerTest {
 
 		}
 	}
-	
+
 	@Test
 	public void findAllTest() {
-		List <OrderItem> list = orderItemManager.findAll();
+		List<OrderItem> list = orderItemManager.findAll();
 		assertNotNull(list);
 		int i = list.size();
-		
+
 		Product product = new Product();
 		product.setName("TNT 454");
 		product.setPrice(new BigDecimal(99));
@@ -307,6 +303,6 @@ public class OrderItemManagerTest {
 
 		list = orderItemManager.findAll();
 		assertNotNull(list);
-		assertTrue(list.size() == i+3);
+		assertTrue(list.size() == i + 3);
 	}
 }

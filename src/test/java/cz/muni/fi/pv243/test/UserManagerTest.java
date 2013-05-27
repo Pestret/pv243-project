@@ -265,7 +265,7 @@ public class UserManagerTest {
 	public void updateUserNullOrEmptyTest() {
 		User user = new User();
 		user.setName("Pepa Repa");
-		user.setEmail("ac2@milujipraci.cz");
+		user.setEmail("ac23@milujipraci.cz");
 		user.setAddress("doma");
 		user.setPasswordHash("totalniH4sH");
 		userManager.create(user);
