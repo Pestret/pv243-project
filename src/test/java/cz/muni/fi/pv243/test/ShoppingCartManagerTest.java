@@ -2,17 +2,13 @@ package cz.muni.fi.pv243.test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.logging.Logger;
 
-import javax.ejb.EJBException;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.seam.security.util.Base64;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
@@ -24,6 +20,7 @@ import cz.muni.fi.pv243.model.OrderItem;
 import cz.muni.fi.pv243.model.Product;
 import cz.muni.fi.pv243.model.ShoppingCart;
 import cz.muni.fi.pv243.model.User;
+import cz.muni.fi.pv243.security.Encoder;
 import cz.muni.fi.pv243.service.OrderItemManager;
 import cz.muni.fi.pv243.service.OrderItemManagerImpl;
 import cz.muni.fi.pv243.service.ProductManager;
@@ -45,15 +42,15 @@ public class ShoppingCartManagerTest {
 						Product.class, UserManager.class,
 						UserManagerImpl.class,ProductManagerImpl.class, 
 						ShoppingCartManagerImpl.class, OrderItemManagerImpl.class, ProductManager.class, 
-						ShoppingCartManager.class, OrderItemManager.class, Resources.class)
+						ShoppingCartManager.class, OrderItemManager.class, Resources.class, Encoder.class)
+						.addPackage(org.picketlink.idm.api.User.class.getPackage())
+				.addPackage(Base64.class.getPackage())
+				.addPackage("cz.muni.fi.pv243.model.validation")
 				.addAsResource("META-INF/test-persistence.xml",
 						"META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				.addAsWebInfResource("test-ds.xml");
 	}
-
-	@Inject
-	Logger log;
 
 	@Inject
 	UserManager userManager;
@@ -66,16 +63,15 @@ public class ShoppingCartManagerTest {
 	
 	@Test
 	public void Test() {
-//		User user = new User();
-//		user.setName("Pepa z depa");
-//		user.setEmail("nebuduToDelat@milujipraci.cz");
-//		user.setAddress("doma");
-//		user.setPasswordHash("totalniH4sH");
-//		userManager.create(user);
-//		userManager.findByEmail("nebuduToDelat@milujipraci.cz");
+		User user = new User();
+		user.setName("Pepa Pepa");
+		user.setEmail("nebuduTat@milujipraci.cz");
+		user.setAddress("doma");
+		user.setPasswordHash("totalniH4sH");
+		userManager.create(user);
 		
 		Product item = new Product();
-		item.setAvailable(100);
+		item.setAvailable(1);
 		item.setDescription("bla bla");
 		item.setName("Boziii");
 		item.setPrice(new BigDecimal(99));
@@ -83,7 +79,6 @@ public class ShoppingCartManagerTest {
 		product.create(item);
 		
 		OrderItem ord = new OrderItem();
-//		item.setId(0l);
 		ord.setProduct(item);
 		ord.setQuantity(3);
 		
@@ -92,13 +87,9 @@ public class ShoppingCartManagerTest {
 		ShoppingCart cart = new ShoppingCart();
 		List<OrderItem> list = new ArrayList<OrderItem>();
 		list.add(ord);
+		cart.setUser(user);
 		cart.setItems(list);
 		
 		shop.create(cart);
-	
-		List<ShoppingCart> fin = shop.getFinishedOrders();
-		System.out.println(fin.size());
-		List<ShoppingCart> unfin = shop.getUnfinishedOrders();
-		System.out.println(unfin.size()+"");
 	}
 }

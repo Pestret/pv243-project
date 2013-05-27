@@ -11,7 +11,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import cz.muni.fi.pv243.model.Product;
-import cz.muni.fi.pv243.model.User;
 
 @Stateless
 public class ProductManagerImpl implements ProductManager {

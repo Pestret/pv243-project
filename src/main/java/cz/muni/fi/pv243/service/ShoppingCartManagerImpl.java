@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ejb.Stateful;
 import javax.enterprise.event.Event;
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -29,7 +28,7 @@ public class ShoppingCartManagerImpl implements ShoppingCartManager {
 	@Override
 	public void create(ShoppingCart cart) {
 		if (cart == null || cart.getId() != null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid cart to create operation.");
 		}
 		em.persist(cart);
 		cartEventSrc.fire(cart);
@@ -38,7 +37,7 @@ public class ShoppingCartManagerImpl implements ShoppingCartManager {
 	@Override
 	public void update(ShoppingCart cart) {
 		if (cart == null || cart.getId() == null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid cart to update operation.");
 		}
 		em.merge(cart);
 		cartEventSrc.fire(cart);
@@ -47,7 +46,7 @@ public class ShoppingCartManagerImpl implements ShoppingCartManager {
 	@Override
 	public void delete(ShoppingCart cart) {
 		if (cart == null || cart.getId() == null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid cart to delete operation.");
 		}
 		em.remove(get(cart.getId()));
 		cartEventSrc.fire(cart);
@@ -56,7 +55,7 @@ public class ShoppingCartManagerImpl implements ShoppingCartManager {
 	@Override
 	public ShoppingCart get(Long id) {
 		if (id == null) {
-			throw new IllegalArgumentException("je to zosrate");
+			throw new IllegalArgumentException("Invalid id of cart.");
 		}
 		try {
 			CriteriaBuilder cb = em.getCriteriaBuilder();
