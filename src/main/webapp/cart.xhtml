@@ -4,16 +4,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/WEB-INF/templates/default.xhtml">
-
+	<ui:define name="nav">
+		<ul class="nav">
+			<li><a href="index.jsf">Home</a></li>
+			<li class="active"><a href="cart.jsf">Cart</a></li>
+			<li><h:link outcome="login" rendered="#{!identity.loggedIn}">Login</h:link></li>
+			<li><h:link outcome="register" rendered="#{!identity.loggedIn}">Registration</h:link></li>
+			<li><h:commandLink action="#{identity.logout}"
+					rendered="#{identity.loggedIn}">Logout</h:commandLink></li>
+		</ul>
+	</ui:define>
 	<ui:define name="content">
 		<h1>Shopping cart</h1>
-
-		<h2>Items</h2>
-		<h:form>
-			<h:commandButton id="add"
-				action="#{shoppingCartController.addToCart(100, 2)}"
-				value="Add to cart" />
-		</h:form>
 		<h:panelGroup rendered="#{empty shoppingCartController.all}">
 			<em>The cart is empty.</em>
 		</h:panelGroup>
@@ -21,51 +23,54 @@
 		<h:form id="form">
 			<h:dataTable var="_item" value="#{shoppingCartController.all}"
 				rendered="#{not empty shoppingCartController.all}"
-				styleClass="simpletablestyle">
-				<h:column>
-					<f:facet name="header">Id</f:facet>
-                #{_item.id}
-            </h:column>
+				styleClass="table table-striped table-bordered" columnClasses="fst,snc,thr">
 				<h:column>
 					<f:facet name="header">Product</f:facet>
                 #{_item.product.name}
             </h:column>
-				<h:column>
-					<f:facet name="header">Quantity</f:facet>
-					<h:panelGrid>
-						<h:inputText id="intxt" value="#{_item.quantity}" onkeyup="if($(this).val() == 0) {$(this).val(1)};" onkeypress="if((event.which &lt; 48 &amp;&amp; event.which != 08 )|| event.which &gt; 57) return false;"/>
-						<f:ajax event="keyup" execute="intxt" render="outtxt" />
-						<f:ajax event="keyup" execute="intxt" render="totalPriceLabel" />
-					</h:panelGrid>
-				</h:column>
 				<h:column id="col">
 					<f:facet name="header">Price</f:facet>
 					<h:outputLabel id="outtxt"
-						value="#{_item.product.price * _item.quantity}" />
+						value="#{_item.product.price * _item.quantity} $" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Quantity</f:facet>
+					<h:panelGrid>
+						<h:inputText styleClass="input-small input-quantity" id="intxt" value="#{_item.quantity}"
+							onkeypress="if((event.which &lt; 48 &amp;&amp; event.which != 08 )|| event.which &gt; 57) return false;" />
+						<f:ajax event="keyup" execute="intxt" render="outtxt" />
+						<f:ajax event="keyup" execute="intxt" render="totalPriceLabel" />
+					</h:panelGrid>
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
 					<h:commandButton id="remove"
 						action="#{shoppingCartController.deleteOrderItemInCart(_item.product)}"
-						value="Remove" styleClass="remove" />
+						value="Remove" styleClass="btn btn-danger" />
 				</h:column>
 				<f:facet name="footer">
-					<h:outputLabel id="totalPriceLabel"
-						value="Total price: #{shoppingCartController.totalPrice}" />
+					<div class="row">
+						<div class="span2">
+							<h:commandButton id="clear"
+								action="#{shoppingCartController.clearCart()}"
+								value="Clear cart" styleClass="btn-warning" />
+						</div>
+						<div class="span4">
+							<h:outputLabel id="totalPriceLabel"
+								value="Total price: #{shoppingCartController.totalPrice} $" />
+						</div>
+					</div>
 				</f:facet>
 			</h:dataTable>
 		</h:form>
 
 		<p>
 			<h:form>
-				<h:panelGrid columns="2">
-					<h:commandButton id="order"
-						action="#{shoppingCartController.order()}" value="Order"
-						styleClass="register" />
-					<h:commandButton id="clear"
-						action="#{shoppingCartController.clearCart()}" value="Clear"
-						styleClass="register" />
-				</h:panelGrid>
+				<div class="text-center">
+					<h:commandButton id="order" onclick="if($('.input-quantity').val() == 0) {alert('Invalid quantity!');return false;};"
+						action="#{shoppingCartController.order()}" value="Make an order!"
+						styleClass="btn-info btn-large" />
+				</div>
 			</h:form>
 
 		</p>

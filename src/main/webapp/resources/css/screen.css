@@ -96,28 +96,27 @@ h5 {
 h6 {
 }
 /* Member registration styles */
-span.invalid {
+.invalid {
   padding-left: 3px;
   color: red;
 }
 
-label {
-  float: left;
-  width: 15%;
-  margin-left: 20px;
-  margin-right: 0.5em;
-  padding-top: 0.2em;
-  text-align: right;
-  font-weight: bold;
-  color:#363636;
+.fst{
+	width: 30%;
 }
-input {
-  margin-bottom: 8px;
+
+.snc{
+	width: 40%;
 }
-.register {
-  float: left;
-  margin-left: 85px;
+
+.thr{
+	width: 10%;
 }
+
+.frt{
+	width: 20%;
+}
+
 
 /*  -----  table style  -------  */
 
@@ -173,7 +172,6 @@ input {
 .simpletablestyle tr.header td {
   padding: 0px 10px 0px 5px;
 }
-
 
 .simpletablestyle .subheader {
   background-color: #e6e7e8;

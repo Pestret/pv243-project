@@ -4,46 +4,83 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="nav">
+		<ul class="nav">
+			<li><a href="index.jsf">Home</a></li>
+			<li><a href="cart.jsf">Cart</a></li>
+			<li><h:link outcome="login" rendered="#{!identity.loggedIn}">Login</h:link></li>
+			<li class="active"><h:link outcome="register"
+					rendered="#{!identity.loggedIn}">Registration</h:link></li>
+			<li><h:commandLink action="#{identity.logout}"
+					rendered="#{identity.loggedIn}">Logout</h:commandLink></li>
+		</ul>
+	</ui:define>
 	<ui:define name="content">
 		<h1>Registration Page</h1>
-
-		<div>
-			<p>Registration</p>
-		</div>
-
+		<br/>
 		<h:form id="registerForm">
-			<h2>User Registration</h2>
-			<h:message for="registerMessages" />
-			<h:panelGrid columns="3" columnClasses="titleCell">
-				<h:outputLabel for="name" value="Name:" />
-				<h:inputText id="name" value="#{newUser.name}" />
-				<h:message for="name" errorClass="invalid" />
+			<div class="row-fluid">
+				<div class="span7">
+					<h:message for="registerMessages" />
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label" for="name"
+							value="Name: " />
+						<div class="controls">
+							<h:inputText id="name" autocomplete="false"
+								value="#{newUser.name}" />
+							<h:message for="name" errorClass="invalid" />
+						</div>
 
-				<h:outputLabel for="email" value="Email:" />
-				<h:inputText id="email" value="#{newUser.email}" />
-				<h:message for="email" errorClass="invalid" />
-				
-				<h:outputLabel for="passwordHash" value="Password*:" />
-				<h:inputSecret id="passwordHash" value="#{newUser.passwordHash}" >
-					<f:validator validatorId="passwordValidator" />
-				</h:inputSecret>
-				<h:message for="passwordHash" errorClass="invalid" />
+					</div>
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label" for="email"
+							value="Email: " />
+						<div class="controls">
+							<h:inputText id="email" autocomplete="false"
+								value="#{newUser.email}" />
+							<h:message for="email" errorClass="invalid" />
+						</div>
 
-				<h:outputLabel for="address" value="Address:" />
-				<h:inputText id="address" value="#{newUser.address}" />
-				<h:message for="address" errorClass="invalid" />
-				<h:outputText value="*Password must contains one digit from 0-9, one lowercase characters, one uppercase characters	and length at least 6 characters and maximum of 20" />
-			</h:panelGrid>
+					</div>
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label" for="passwordHash"
+							value="Password*: " />
+						<div class="controls">
+							<h:inputSecret id="passwordHash" autocomplete="off"
+								value="#{newUser.passwordHash}">
+								<f:validator validatorId="passwordValidator" />
+							</h:inputSecret>
+							<h:message for="passwordHash" errorClass="invalid" />
+						</div>
 
-			<p>
-				<h:panelGrid columns="2">
-					<h:commandButton id="register"
-						action="#{userController.register}" value="Register"
-						styleClass="register" />
+					</div>
+					<div class="control-group">
+						<h:outputLabel styleClass="control-label" for="address"
+							value="Address: " />
+						<div class="controls">
+							<h:inputText id="address" autocomplete="off"
+								value="#{newUser.address}" />
+							<h:message for="address" errorClass="invalid" />
+						</div>
+
+					</div>
+				</div>
+
+				<div class="span5">
+					<div class="control-group">
+						<div class="alert">*Password must contains one digit from
+							0-9, one lowercase characters, one uppercase characters and
+							length at least 6 characters and maximum of 20"</div>
+					</div>
+				</div>
+				<div class="span3 offset1">
+					<h:commandButton id="register" action="#{userController.register}"
+						value="Register" styleClass="btn btn-primary btn-large" />
 					<h:messages styleClass="messages" errorClass="invalid"
 						infoClass="valid" warnClass="warning" globalOnly="true" />
-				</h:panelGrid>
-			</p>
+				</div>
+			</div>
 		</h:form>
+
 	</ui:define>
 </ui:composition>

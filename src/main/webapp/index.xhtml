@@ -15,52 +15,34 @@
 		</ul>
 	</ui:define>
 	<ui:define name="content">
-		<h1>The last page you'll ever see...</h1>
+		<h1>Products</h1>
 
-		<div>
-			<p>Luckily deployed, enjoy your stay...</p>
-		</div>
-
-		<h2>Members</h2>
-		<h:panelGroup rendered="#{empty users}">
-			<em>No registered members.</em>
-		</h:panelGroup>
-		<h:dataTable var="_user" value="#{users}"
-			rendered="#{not empty users}" styleClass="simpletablestyle">
-			<h:column>
-				<f:facet name="header">Id</f:facet>
-                #{_user.identificator}
-            </h:column>
-			<h:column>
-				<f:facet name="header">Email</f:facet>
-                #{_user.email}
-            </h:column>
-			<f:facet name="footer">
-			</f:facet>
-		</h:dataTable>
-		<br />
 		<h:panelGroup rendered="#{empty products}">
 			<em>No products.</em>
 		</h:panelGroup>
 		<h:dataTable var="_product" value="#{products}"
-			rendered="#{not empty products}" styleClass="simpletablestyle">
-			<h:column>
-				<f:facet name="header">Id</f:facet>
-                #{_product.id}
-            </h:column>
+			rendered="#{not empty products}" style="width: 100%;"
+			 styleClass="table table-striped table-bordered" columnClasses="fst,scn,thr,frt">
 			<h:column>
 				<f:facet name="header">Name</f:facet>
-                #{_product.name}
+                <p>#{_product.name}</p>
+            </h:column>
+            <h:column>
+				<f:facet name="header">Description</f:facet>
+                <p>#{_product.description}</p>
+            </h:column>
+            <h:column>
+				<f:facet name="header">Price</f:facet>
+                <p class="text-center">#{_product.price} $</p>
             </h:column>
 			<h:column>
-				<f:facet name="header"></f:facet>
+				<f:facet name="header">Count</f:facet>
 				<h:form id="quantityForm">
-
 					<h:inputText value="#{shoppingCartController.quantity}"
 						converter="javax.faces.Long"
 						onkeyup="if($(this).val() == 0) {$(this).val(1)};"
 						onkeypress="if(((event.which &lt; 48 &amp;&amp; event.which != 08 )|| event.which &gt; 57)) return false;" />
-					<h:commandButton id="add"
+					<h:commandButton styleClass="btn btn-success" id="add"
 						action="#{shoppingCartController.addToCart(_product.id, shoppingCartController.quantity)}"
 						value="Add to cart" />
 				</h:form>
