@@ -31,7 +31,7 @@ public class User implements Serializable, org.picketlink.idm.api.User {
 	@ValidName
 	private String name;
 	@NotNull
-	@Size(min = 1, max = 80)
+	@Size(min = 1, max = 80, message="Invalid address!")
 	private String address;
 	@NotNull
 	@Column(unique = true)

@@ -16,7 +16,7 @@ import javax.validation.Payload;
 @Documented
 public @interface ValidName {
 	
-	String message() default "Not a valid name!";
+	String message() default "Invalid name!";
 
     Class<?>[] groups() default {};
 

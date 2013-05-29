@@ -27,8 +27,8 @@ public class PasswordValidator implements Validator{
 		if(!bool) {
             FacesMessage message = new FacesMessage();
             message.setSeverity(FacesMessage.SEVERITY_ERROR);
-            message.setSummary("Password is not valid.");
-            message.setDetail("Password is not valid.");
+            message.setSummary("Invalid password!");
+            message.setDetail("Invalid password!");
             arg0.addMessage("registerForm:passwordHash", message);
             throw new ValidatorException(message);
         }
