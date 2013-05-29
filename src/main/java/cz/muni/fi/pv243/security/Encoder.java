@@ -10,11 +10,12 @@ public class Encoder {
 
 	public static String encode(String password, String salt)
 			throws NoSuchAlgorithmException {
+		log.finest("Calling encode method");
 		MessageDigest digest;
 		digest = MessageDigest.getInstance("SHA-256");
 		digest.reset();
 		digest.update(salt.getBytes());
-		
+		log.finest("Returning encoded result");
 		return Base64.encodeBytes(digest.digest(password.getBytes()));
 	}
 }

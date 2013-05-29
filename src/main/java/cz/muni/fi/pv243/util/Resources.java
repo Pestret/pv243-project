@@ -19,10 +19,8 @@ package cz.muni.fi.pv243.util;
 import java.io.Serializable;
 import java.util.logging.Logger;
 
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 

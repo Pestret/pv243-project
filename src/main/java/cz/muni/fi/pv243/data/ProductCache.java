@@ -42,7 +42,6 @@ public class ProductCache {
             criteria.select(us).orderBy(cb.asc(us.get("name")));
             allProducts = em.createQuery(criteria).getResultList();
         } catch (Exception e) {
-        	//TODO log
         	allProducts = new ArrayList<Product>();
         }
 	}

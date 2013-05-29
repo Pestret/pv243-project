@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
@@ -25,6 +26,9 @@ public class AdminController implements Serializable{
 
 	private static final long serialVersionUID = 1464525L;
 
+	@Inject
+	private Logger log;
+	
 	@Inject
 	 private FacesContext facesContext;
 	
@@ -70,8 +74,7 @@ public class AdminController implements Serializable{
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("detail_admin.jsf");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.warning("IO Exception raised while redirecting to admin details");
 		}
 	}
 	 

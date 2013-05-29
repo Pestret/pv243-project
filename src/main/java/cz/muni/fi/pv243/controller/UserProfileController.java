@@ -5,13 +5,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
-import javax.enterprise.inject.Produces;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import org.jboss.seam.security.Identity;
 
@@ -38,15 +37,20 @@ public class UserProfileController implements Serializable {
 	@Inject
 	private OrderItemManager orderManager;
 	
+	@Inject
+	private Logger log;
+	
 	private Long cardId;
 
 	public BigDecimal priceOfOrder(Long id) {
+		log.finest("Counting priceOfOrder");
 		BigDecimal num = new BigDecimal(0);
 		ShoppingCart cart = cartManager.get(id);
 		List<OrderItem> items = cart.getItems();
 		for(OrderItem item : items){
 			num = num.add(item.getProduct().getPrice().multiply(new BigDecimal(item.getQuantity())));
 		}
+		log.finest("Counted priceOfOrder");
 		return num;
 	}
 	 
@@ -67,8 +71,7 @@ public class UserProfileController implements Serializable {
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("detail.jsf");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.warning("IO Exception: " + e.toString());
 		}
 	}
 

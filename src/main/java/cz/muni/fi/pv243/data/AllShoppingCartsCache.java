@@ -10,12 +10,6 @@ import javax.enterprise.event.Reception;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
-import cz.muni.fi.pv243.model.Product;
 import cz.muni.fi.pv243.model.ShoppingCart;
 import cz.muni.fi.pv243.service.ShoppingCartManager;
 
@@ -61,5 +55,11 @@ public class AllShoppingCartsCache {
 	public void loadAllOrders () {
 		finishedOrders = shoppingCartManager.getFinishedOrders();
 		unfinishedOrders = shoppingCartManager.getUnfinishedOrders();
+		if (finishedOrders == null) {
+			finishedOrders = new ArrayList<ShoppingCart>();
+		}
+		if (unfinishedOrders == null) {
+			unfinishedOrders = new ArrayList<ShoppingCart>();
+		}
 	}
 }

@@ -16,7 +16,7 @@ public class NameValidator implements ConstraintValidator<ValidName, String>{
 
 	@Override
 	public void initialize(ValidName arg0) {
-		// TODO Auto-generated method stub
+		// Auto-generated method stub
 	}
 
 }

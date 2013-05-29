@@ -3,6 +3,7 @@ package cz.muni.fi.pv243.controller;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.inject.Model;
@@ -31,6 +32,9 @@ public class ShoppingCartController implements Serializable {
 	 */
 	private static final long serialVersionUID = 2118963139420656282L;
 
+	@Inject
+	private Logger log;
+	
 	@Inject
 	private FacesContext facesContext;
 
@@ -116,40 +120,29 @@ public class ShoppingCartController implements Serializable {
 	}
 
 	public void order() {
-		// TODO
-		// check if user is logged in, otherwise next line will be nullpointer
-		if (identity.getUser() == null) {
-			try {
-				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect("order.jsf");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		} else {
+		log.finest("Calling order method");
+		if (identity.getUser() != null) {
 			cart.setUser(userManager.findByEmail(identity.getUser().getId()));
-
-			try {
-				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect("order.jsf");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		}
+		try {
+			log.finest("Redirecting to order page");
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect("order.jsf");
+		} catch (IOException e) {
+			log.warning("IO exception raised while making order: " + e.toString());
 		}
 	}
 
 	public void confirm() {
+		log.finest("Confirming order");
 		cartManager.create(cart);
 		clearCart();
-
 		try {
+			log.finest("Order confirmed and redirect to index");
 			FacesContext.getCurrentInstance().getExternalContext()
 					.redirect("index.jsf");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.warning("IO Exception raised while confirming order");
 		}
 	}
 }
