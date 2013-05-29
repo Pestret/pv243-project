@@ -96,6 +96,7 @@ public class ShoppingCartController implements Serializable {
 		for (OrderItem forItem : items) {
 			if (forItem.getProduct().equals(product)) {
 				items.remove(forItem);
+				break;
 			}
 		}
 	}

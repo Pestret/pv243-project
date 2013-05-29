@@ -1,19 +1,3 @@
-/**
- * JBoss, Home of Professional Open Source
- * Copyright 2013, Red Hat, Inc. and/or its affiliates, and individual
- * contributors by the @authors tag. See the copyright.txt in the
- * distribution for a full listing of individual contributors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package cz.muni.fi.pv243.controller;
 
 import java.security.NoSuchAlgorithmException;
@@ -96,6 +80,9 @@ public class UserController extends BaseAuthenticator {
 	public void auth() {
 		log.finest("Calling auth method");
 		identity.login();
+		if(!identity.isLoggedIn()){
+			return;
+		}
 		HttpServletRequest request = (HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest();
 
@@ -137,8 +124,8 @@ public class UserController extends BaseAuthenticator {
 		if (userFromDb == null) {
 			log.info("Null user tried to log in");
 			setStatus(AuthenticationStatus.FAILURE);
-			facesContext.addMessage("loginForm:email", new FacesMessage(
-					"Non existing user"));
+			facesContext.addMessage("loginForm:username", new FacesMessage(
+					FacesMessage.SEVERITY_ERROR, "Non existing user", "Non existing user"));
 		} else {
 			try {
 				if (userFromDb.getPasswordHash().equals(
@@ -146,8 +133,7 @@ public class UserController extends BaseAuthenticator {
 								.getCredential()).getValue(), credentials
 								.getUsername()))) {
 					// login success
-					log.info("Login success");
-					facesContext.addMessage("loginForm:passwordHash",
+					facesContext.addMessage("loginForm:password",
 							new FacesMessage("Good password"));
 					setStatus(AuthenticationStatus.SUCCESS);
 					setUser(userFromDb);
@@ -155,8 +141,8 @@ public class UserController extends BaseAuthenticator {
 				} else {
 					// login failed
 					log.info("Login failed");
-					facesContext.addMessage("loginForm:passwordHash",
-							new FacesMessage("Wrong password"));
+					facesContext.addMessage("loginForm:password",
+							new FacesMessage(FacesMessage.SEVERITY_ERROR, "Wrong password","Wrong password"));
 					setStatus(AuthenticationStatus.FAILURE);
 				}
 			} catch (NoSuchAlgorithmException e) {
