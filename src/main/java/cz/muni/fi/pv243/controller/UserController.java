@@ -77,7 +77,7 @@ public class UserController extends BaseAuthenticator {
 		}
 	}
 
-	public void auth() {
+	public void auth(){
 		log.finest("Calling auth method");
 		identity.login();
 		if(!identity.isLoggedIn()){
@@ -85,7 +85,6 @@ public class UserController extends BaseAuthenticator {
 		}
 		HttpServletRequest request = (HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest();
-
 		try {
 			if (!request
 					.getHeader("Referer")

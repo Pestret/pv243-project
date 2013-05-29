@@ -13,13 +13,13 @@ import cz.muni.fi.pv243.model.*;
 @Service
 public class Authorization {
 
-	@Inject
-	static Logger log;
+//	@Inject
+//	static Logger log;
 
 	@Secures
 	@Admin
 	public static boolean isAdmin(Identity identity) {
-		log.finest("Authorization: isAdmin");
+//		log.finest("Authorization: isAdmin");
 		if (!identity.isLoggedIn()) {
 			return false;
 		}
@@ -29,7 +29,7 @@ public class Authorization {
 	@Secures
 	@BasicPermission
 	public static boolean isCustomer(Identity identity) {
-		log.finest("Authorization: isCustomer");
+//		log.finest("Authorization: isCustomer");
 		if (!identity.isLoggedIn()) {
 			return false;
 		}	
