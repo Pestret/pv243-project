@@ -3,6 +3,7 @@ package cz.muni.fi.pv243.service;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -11,7 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import cz.muni.fi.pv243.model.OrderItem;
-
+@RolesAllowed(value={"admin","customer"})
 @Stateless
 public class OrderItemManagerImpl implements OrderItemManager {
 	

@@ -4,6 +4,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -16,6 +17,7 @@ import javax.persistence.criteria.Root;
 import cz.muni.fi.pv243.model.User;
 import cz.muni.fi.pv243.security.Encoder;
 
+@RolesAllowed(value={"admin","customer"})
 @Stateless
 public class UserManagerImpl implements UserManager {
 

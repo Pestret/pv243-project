@@ -3,6 +3,7 @@ package cz.muni.fi.pv243.service;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateful;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
@@ -16,6 +17,7 @@ import org.jboss.ha.framework.interfaces.RoundRobin;
 
 import cz.muni.fi.pv243.model.ShoppingCart;
 
+@RolesAllowed(value={"admin","customer"})
 @Stateful
 @Clustered(loadBalancePolicy=RoundRobin.class)
 public class ShoppingCartManagerImpl implements ShoppingCartManager {
