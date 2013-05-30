@@ -135,6 +135,8 @@ public class ShoppingCartController implements Serializable {
 	}
 
 	public void confirm() {
+		if(cart.getUser() == null)
+			cart.setUser(userManager.findByEmail(identity.getUser().getId()));
 		log.finest("Confirming order");
 		cartManager.create(cart);
 		clearCart();

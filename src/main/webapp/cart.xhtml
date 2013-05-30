@@ -8,10 +8,12 @@
 		<ul class="nav">
 			<li><a href="index.jsf">Home</a></li>
 			<li class="active"><a href="cart.jsf">Cart</a></li>
-			<li><h:link outcome="login" rendered="#{!identity.loggedIn}">Login</h:link></li>
+			<li><h:link outcome="user_profile.jsf" rendered="#{identity.loggedIn}">Profile</h:link></li>
+			<li><h:link outcome="admin_page.jsf" rendered="#{identity.loggedIn and userController.isAdmin(identity)}">Admin</h:link></li>
+			<li><h:link outcome="login.jsf"  rendered="#{!identity.loggedIn}">Login</h:link></li>
 			<li><h:link outcome="register" rendered="#{!identity.loggedIn}">Registration</h:link></li>
-			<li><h:commandLink action="#{identity.logout}"
-					rendered="#{identity.loggedIn}">Logout</h:commandLink></li>
+				<li><h:commandLink action="#{identity.logout}"
+						rendered="#{identity.loggedIn}">Logout</h:commandLink></li>
 		</ul>
 	</ui:define>
 	<ui:define name="content">
@@ -69,6 +71,7 @@
 				<div class="text-center">
 					<h:commandButton id="order" onclick="if($('.input-quantity').val() == 0) {alert('Invalid quantity!');return false;};"
 						action="#{shoppingCartController.order()}" value="Make an order!"
+						disabled="#{empty shoppingCartController.all}"
 						styleClass="btn-info btn-large" />
 				</div>
 			</h:form>
