@@ -21,69 +21,55 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<h1>User page</h1>
-
-		<div>
-			<p>Your orders.</p>
-		</div>
-		<h2>Completed orders</h2>
-
+		<h1>User page</h1><br/>
+		
+		<h2>Confirmed orders</h2>
 		<h:panelGroup rendered="#{empty userFinished}">
-			<em>No finished orders.</em>
+			<div class="alert">No confirmed orders.</div>
 		</h:panelGroup>
 
 		<h:dataTable var="_item" value="#{userFinished}"
-			rendered="#{not empty userFinished}" styleClass="simpletablestyle">
-			<h:column>
-				<f:facet name="header">Id</f:facet>
-                #{_item.id}
-            </h:column>
-			<h:column id="col">
-				<f:facet name="header">Price</f:facet>
-				<h:outputLabel id="outtxt"
-					value="#{userProfileController.priceOfOrder(_item.id)}" />
-			</h:column>
+			rendered="#{not empty userFinished}" styleClass="table table-striped table-bordered">
 			<h:column>
 				<f:facet name="header">Detail</f:facet>
 				<h:form>
 					<h:commandButton id="detailF"
 						action="#{userProfileController.detailRedirect(_item.id)}"
-						value="Detail" />
+						value="Detail" styleClass="btn btn-primary" />
 				</h:form>
+			</h:column>
+			<h:column id="col">
+				<f:facet name="header">Price</f:facet>
+				<h:outputLabel id="outtxt"
+					value="#{userProfileController.priceOfOrder(_item.id)}" />
 			</h:column>
 		</h:dataTable>
 
-		<h2>Uncompleted orders</h2>
+		<h2>Unconfirmed orders</h2>
 		<h:panelGroup rendered="#{empty userUnfinished}">
-			<em>No unfinished orders.</em>
+			<div class="alert">No unconfirmed orders.</div>
 		</h:panelGroup>
 
 		<h:dataTable var="_item2" value="#{userUnfinished}"
-			rendered="#{not empty userUnfinished}" styleClass="simpletablestyle">
+			rendered="#{not empty userUnfinished}" styleClass="table table-striped table-bordered">
 			<h:column>
-				<f:facet name="header">Id</f:facet>
-                #{_item2.id}
-            </h:column>
-
+				<f:facet name="header">Detail</f:facet>
+				<h:form>
+					<h:commandButton id="detail"
+						action="#{userProfileController.detailRedirect(_item2.id)}"
+						value="Detail" styleClass="btn btn-primary" />
+				</h:form>
+			</h:column>
 			<h:column id="colu">
 				<f:facet name="header">Price</f:facet>
 				<h:outputLabel id="outtxt"
 					value="#{userProfileController.priceOfOrder(_item2.id)}" />
 			</h:column>
 			<h:column>
-				<f:facet name="header">Detail</f:facet>
-				<h:form>
-					<h:commandButton id="detail"
-						action="#{userProfileController.detailRedirect(_item2.id)}"
-						value="Detail" />
-				</h:form>
-			</h:column>
-			<h:column>
-				<f:facet name="header">Remove</f:facet>
 				<h:form>
 					<h:commandButton id="remove"
 						action="#{userProfileController.deleteOrder(_item2.id)}"
-						value="Remove" />
+						value="Storno" styleClass="btn btn-danger" />
 				</h:form>
 			</h:column>
 		</h:dataTable>

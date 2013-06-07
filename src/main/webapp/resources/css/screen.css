@@ -60,7 +60,8 @@ body {
 }
 .dualbrand {
   float: right;
-  padding-right: 10px;
+  text-align: right;
+  padding-right: 10px
 }
 #footer {
   clear: both;

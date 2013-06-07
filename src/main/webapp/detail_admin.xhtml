@@ -17,20 +17,21 @@
 		</ul>
 	</ui:define>
 	<ui:define name="content">
-		<h1>Detail</h1>
+		<h1>Detail</h1><br/>
 
-		<div>
-			<p>Information about order.</p>
-		</div>
 		<h2>Shopping cart</h2>
 		<h:panelGroup rendered="#{empty adminController.getAllItems()}">
-			<em>No items.</em>
+			<div class="alert">No items.</div>
 		</h:panelGroup>
 		<h:dataTable var="_order" value="#{adminController.getAllItems()}"
-			rendered="#{not empty adminController.getAllItems()}" styleClass="simpletablestyle">
+			rendered="#{not empty adminController.getAllItems()}" styleClass="table table-striped table-bordered">
 			<h:column>
 				<f:facet name="header">Item</f:facet>
                 #{_order.product.name}
+            </h:column>
+            <h:column>
+				<f:facet name="header">Price</f:facet>
+                #{_order.product.price}
             </h:column>
             <h:column>
 				<f:facet name="header">Quantity</f:facet>

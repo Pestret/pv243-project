@@ -19,9 +19,10 @@
 	<ui:define name="content">
 		<h1>Registration Page</h1>
 		<br/>
+		
 		<h:form id="registerForm">
 			<div class="row-fluid">
-				<div class="span7">
+				<div class="span5">
 					<h:message for="registerMessages" />
 					<div class="control-group">
 						<h:outputLabel styleClass="control-label" for="name"
@@ -62,15 +63,18 @@
 						</div>
 					</div>
 				</div>
-
-				<div class="span5">
+				
+				<br/><br/>
+				<div class="span7">
 					<div class="control-group">
 						<div class="alert">* Password must contains one digit from
 							0-9, one lowercase characters, one uppercase characters and
 							length at least 6 characters and maximum of 20</div>
 					</div>
 				</div>
-				<div class="span3 offset1">
+				
+				<br/><br/><br/><br/>
+				<div class="span3 offset2">
 					<h:commandButton id="register" action="#{userController.register}"
 						value="Register" styleClass="btn btn-primary btn-large" />
 					<h:messages styleClass="messages" errorClass="invalid"

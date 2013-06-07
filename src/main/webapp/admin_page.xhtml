@@ -17,17 +17,14 @@
 		</ul>
 	</ui:define>
 	<ui:define name="content">
-		<h1>Admin Page</h1>
+		<h1>Admin Page</h1><br/>
 
-		<div>
-			<p>From here admin can see all shopping carts etc.</p>
-		</div>
 		<h2>Shopping carts to confirm</h2>
 		<h:panelGroup rendered="#{empty unfinishedCarts}">
-			<em>No shopping carts.</em>
+			<div class="alert">No shopping carts to confirm.</div>
 		</h:panelGroup>
 		<h:dataTable var="_carts" value="#{unfinishedCarts}"
-			rendered="#{not empty unfinishedCarts}" styleClass="simpletablestyle">
+			rendered="#{not empty unfinishedCarts}" styleClass="table table-striped table-bordered">
 			<h:column>
 				<f:facet name="header">User name</f:facet>
                 #{_carts.user.name}
@@ -49,7 +46,7 @@
                 <h:form>
                 <h:commandButton id="confirm"
 							action="#{adminController.confirmOrder(_carts.id)}"
-							value="Confirm" />
+							value="Confirm" styleClass="btn btn-success" />
                 </h:form>    
             </h:column>
             <h:column>
@@ -57,7 +54,7 @@
                 <h:form>
                 <h:commandButton id="detail"
 							action="#{adminController.detailRedirect(_carts.id)}"
-							value="Detail" />
+							value="Detail" styleClass="btn btn-primary" />
                 </h:form>  
             </h:column>
             <h:column>
@@ -65,18 +62,20 @@
                 <h:form>
                 <h:commandButton id="remove"
 							action="#{adminController.deleteOrder(_carts.id)}"
-							value="Remove" />
+							value="Remove" styleClass="btn btn-danger" />
                 </h:form>
             </h:column>
 			<f:facet name="footer">
 			</f:facet>
 		</h:dataTable>
+		
+		<br/><br/>
 		<h2>Users in system</h2>
 		<h:panelGroup rendered="#{empty adminController.getAllUsers()}">
-			<em>Nobody.</em>
+			<div class="alert">Nobody registered.</div>
 		</h:panelGroup>
 		<h:dataTable var="_user" value="#{adminController.getAllUsers()}"
-			rendered="#{not empty adminController.getAllUsers()}" styleClass="simpletablestyle">
+			rendered="#{not empty adminController.getAllUsers()}" styleClass="table table-striped table-bordered">
 			<h:column>
 				<f:facet name="header">User name</f:facet>
                 #{_user.name}
@@ -94,7 +93,7 @@
                 <h:form>
                 <h:commandButton id="removeee"
 							action="#{adminController.deleteUser(_user.identificator)}"
-							value="Remove"
+							value="Remove" styleClass="btn btn-danger"
 							rendered="#{!_user.role.equals('admin')}" />
                 </h:form>
             </h:column>

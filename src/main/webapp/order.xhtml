@@ -18,7 +18,7 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<h1>Order confirmation</h1>
+		<h1>Order confirmation</h1><br/>
 
 		<h2>Enter your order details</h2>
 		<h:form id="personal">
@@ -43,11 +43,7 @@
 		<h:form id="form">
 			<h:dataTable var="_item" value="#{shoppingCartController.all}"
 				rendered="#{not empty shoppingCartController.all}"
-				styleClass="simpletablestyle">
-				<h:column>
-					<f:facet name="header">Id</f:facet>
-                #{_item.id}
-            </h:column>
+				styleClass="table table-striped table-bordered">
 				<h:column>
 					<f:facet name="header">Product</f:facet>
                 #{_item.product.name}
@@ -84,10 +80,10 @@
 				<h:panelGrid columns="2">
 					<h:commandButton id="order"
 						 value="Confirm" action="#{shoppingCartController.confirm()}"
-						styleClass="register"/>
+						styleClass="btn btn-success"/>
 					<h:commandButton id="clear" onclick="return redirect();"
 						 value="Cancel"
-						styleClass="register" />
+						styleClass="btn btn-danger" />
 				</h:panelGrid>
 			</h:form>
 

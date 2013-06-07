@@ -8,29 +8,23 @@
 		<ul class="nav">
 			<li><a href="index.jsf">Home</a></li>
 			<li><a href="cart.jsf">Cart</a></li>
-			<li><h:link outcome="user_profile.jsf" rendered="#{identity.loggedIn}">Profile</h:link></li>
-			<li><h:link outcome="admin_page.jsf" rendered="#{identity.loggedIn and userController.isAdmin(identity)}">Admin</h:link></li>
-			<li class="active"><h:link outcome="login.jsf"  rendered="#{!identity.loggedIn}">Login</h:link></li>
+			<li><h:link outcome="user_profile.jsf"
+					rendered="#{identity.loggedIn}">Profile</h:link></li>
+			<li><h:link outcome="admin_page.jsf"
+					rendered="#{identity.loggedIn and userController.isAdmin(identity)}">Admin</h:link></li>
+			<li class="active"><h:link outcome="login.jsf"
+					rendered="#{!identity.loggedIn}">Login</h:link></li>
 			<li><h:link outcome="register" rendered="#{!identity.loggedIn}">Registration</h:link></li>
-				<li><h:commandLink action="#{identity.logout}"
-						rendered="#{identity.loggedIn}">Logout</h:commandLink></li>
+			<li><h:commandLink action="#{identity.logout}"
+					rendered="#{identity.loggedIn}">Logout</h:commandLink></li>
 		</ul>
 	</ui:define>
 	<ui:define name="content">
-		<h1>Login page</h1>
-
-		<div class="alert alert-warning">
-			<p>
-				Feel free to log in! Don't have an account yet? Do
-				<h:link outcome="/register.xhtml">
-					register!
-				</h:link>
-			</p>
-		</div>
+		<h1>Login page</h1><br/>
 
 		<h:form id="loginForm">
 			<div class="row-fluid">
-				<div class="span7">
+				<div class="span4">
 					<div class="control-group">
 						<h:outputLabel for="email" styleClass="control-label"
 							value="Email:" />
@@ -48,13 +42,18 @@
 						</div>
 					</div>
 				</div>
-				<div class="span4">
-					<br />
-				</div>
-				<div class="span4">
+
+				<div class="span6">
+					<div class="alert alert-warning">
+						<p>
+							Feel free to log in! Don't have an account yet? <br/>
+							 Do <h:link outcome="/register.xhtml"> register!
+				</h:link>
+						</p>
+					</div>
 					<h:panelGrid columns="2">
 						<h:commandButton id="login" action="#{userController.auth()}"
-							value="Login" styleClass="btn btn-success" />
+							value="Login" styleClass="btn btn-success btn-large" />
 						<h:messages styleClass="messages" errorClass="invalid"
 							infoClass="valid" warnClass="warning" globalOnly="true" />
 					</h:panelGrid>

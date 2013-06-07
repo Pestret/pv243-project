@@ -23,5 +23,5 @@ insert into ShopUser (id, name, email, address, passwordHash, role) values (96, 
 insert into ShopUser (id, name, email, address, passwordHash, role) values (95, 'Admin Adminovskij', 'admin@admin.cz', 'adminova ulice', 'KngByKAUMxQwnW6iwZnrvSXX01JMHQLGy3BbXJ7pO/o=', 'admin')
 insert into Product (id, name, description, price, available) values (100, 'Vybusna vrtacka', 'Bum bam ratata...', 250, 4)
 insert into Product (id, name, description, price, available) values (111, 'Praskaci kulicky', 'Vyborne na straseni duchodcu', 2, 150)
-insert into Product (id, name, description, price, available) values (112, 'Papinak s dusenou mrkvi', 'Boston IMPROVED', 5, 50)
+insert into Product (id, name, description, price, available) values (112, 'Papinak s dusenou mrkvi', 'Rychly konec', 5, 50)
 insert into Product (id, name, description, price, available) values (113, 'Tlacenka se strelnym prachem', 'Nom nom nom', 25, 33)

@@ -17,10 +17,10 @@
 		</ul>
 	</ui:define>
 	<ui:define name="content">
-		<h1>Products</h1>
+		<h1>Products</h1><br/>
 
 		<h:panelGroup rendered="#{empty products}">
-			<em>No products.</em>
+			<div class="alert">No products.</div>
 		</h:panelGroup>
 		<h:dataTable var="_product" value="#{products}"
 			rendered="#{not empty products}" style="width: 100%;"
