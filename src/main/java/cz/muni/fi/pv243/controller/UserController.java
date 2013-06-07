@@ -64,17 +64,27 @@ public class UserController extends BaseAuthenticator {
 	public void register() throws Exception {
 		log.finest("Registering");
 		try {
+			credentials.setUsername(newUser.getEmail());
+			credentials.setCredential(new PasswordCredential(newUser.getPasswordHash()));
+			
 			userManager.create(newUser);
 			FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_INFO,
 					"Registered!", "Registration successful");
 			facesContext.addMessage("registerForm:registerMessages", m);
-			initNewUser();
 			log.info("Registration success");
+
+			identity.login();
+			FacesContext.getCurrentInstance().getExternalContext()
+			.redirect("user_profile.jsf");
+			
 		} catch (Exception e) {
 			log.info("Registration failed");
 			facesContext.addMessage("registerForm:registerMessages",
 					new FacesMessage("Registration failed."));
+		} finally {
+			initNewUser();
 		}
+		
 	}
 
 	public void auth(){
